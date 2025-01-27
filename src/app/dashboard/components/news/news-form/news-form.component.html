@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <!-- <h5 class="font-semibold mt-4">{{ dialogData.action }} News</h5> -->
+  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'CREATE NEW'">Create New News</h5>
+  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'EDIT'">Update News</h5>
+  <form [formGroup]="newsForm">
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-md-12 mt-3">
+        <mat-label>News Title</mat-label>
+        <input
+          type="text"
+          formControlName="newsTitle"
+          matInput
+          class="text-black"
+        />
+        <mat-error
+          *ngIf="
+            newsForm.controls.newsTitle.touched &&
+            newsForm.controls.newsTitle.invalid
+          "
+        >
+          <span *ngIf="newsForm.controls.newsTitle.errors.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-md-12 mt-4">
+        <mat-label>News Description</mat-label>
+        <textarea
+          formControlName="newsDescription"
+          matInput
+          rows="5"
+          class="text-black"
+        ></textarea>
+        <mat-error
+          *ngIf="
+            newsForm.controls.newsDescription.touched &&
+            newsForm.controls.newsDescription.invalid
+          "
+        >
+          <span *ngIf="newsForm.controls.newsDescription.errors?.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <mat-dialog-actions align="end">
+    <button mat-flat-button color="accent" mat-dialog-close>Cancel</button>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="!(newsForm.valid && newsForm.dirty)"
+      (click)="handleNewsSubmit()"
+    >
+      {{ action }} Data
+    </button>
+  </mat-dialog-actions>
+</div>

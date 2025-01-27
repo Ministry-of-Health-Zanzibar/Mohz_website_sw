@@ -1,0 +1,82 @@
+<div class="container-fluid">
+  <!-- <h5 class="font-semibold mt-4">{{ dialogData.action }} News</h5> -->
+  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'CREATE NEW'">
+    Create New News
+  </h5>
+  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'EDIT'">Update News</h5>
+  <form [formGroup]="bannerForm">
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-md-12 mt-3">
+        <mat-label>Title</mat-label>
+        <input
+          type="text"
+          formControlName="title"
+          matInput
+          class="text-black"
+        />
+        <mat-error
+          *ngIf="
+            bannerForm.controls.title.touched &&
+            bannerForm.controls.title.invalid
+          "
+        >
+          <span *ngIf="bannerForm.controls.title.errors.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Desc -->
+      <mat-form-field appearance="outline" class="col-md-12 mt-4">
+        <mat-label>Description</mat-label>
+        <textarea
+          formControlName="description"
+          matInput
+          rows="5"
+          class="text-black"
+        ></textarea>
+        <mat-error
+          *ngIf="
+            bannerForm.controls.description.touched &&
+            bannerForm.controls.description.invalid
+          "
+        >
+          <span *ngIf="bannerForm.controls.description.errors?.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <div class="col-md-12 mt-2">
+        <div class="mb-2">
+            <mat-label>Image</mat-label>
+        </div>
+        <input type="file" (change)="onFileSelected($event)"
+        accept="image/*" class="form-control"/>
+        <mat-error *ngIf="fileError">
+            {{ fileError }}
+          </mat-error>
+      </div>
+      <div *ngIf="previewImage" class="mt-3">
+        <img
+          [src]="previewImage"
+          alt="Preview"
+          class="img-fluid"
+          style="max-height: 200px"
+        />
+      </div>
+    </div>
+  </form>
+
+  <mat-dialog-actions align="end">
+    <button mat-flat-button color="accent" mat-dialog-close>Cancel</button>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="!(bannerForm.valid && bannerForm.dirty)"
+      (click)="handleBannerSubmit()"
+    >
+      {{ action }} Data
+    </button>
+  </mat-dialog-actions>
+</div>
