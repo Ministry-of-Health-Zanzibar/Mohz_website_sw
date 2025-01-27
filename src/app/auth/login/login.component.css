@@ -1,0 +1,232 @@
+.container-fluid {
+    background: url(../../../assets/img/bg-01.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+img {
+    max-width: 100%;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 50px auto;
+}
+
+form {
+    width: 30%;
+    padding: 25px 50px 25px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 6px;
+    z-index: 9;
+}
+
+.form-group {
+    padding: 20px 0px;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+}
+
+.form-control {
+    min-height: 45px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding: 13px 15px;
+    border-radius: 20px;
+    border: 1px solid#2b3990;
+}
+
+.eye-icons {
+    position: relative;
+    float: right;
+    bottom: 32px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.form-group .row {
+    padding: 0 40px;
+    font-size: 19px;
+}
+
+.form-group p {
+    text-align: center;
+    font-size: 19px;
+    color: black;
+}
+
+.form-group a {
+    text-decoration: none;
+    color: black;
+}
+
+.btn-login button {
+    padding: 12px 0px;
+    background: #2b3990;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+/* icons */
+._social_04 {
+    margin-top: -30px;
+    display: block;
+    width: 100%;
+    padding: 15px 0px;
+    text-align: center;
+}
+
+._social_04 ol li {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    transition: 0.2s;
+    background: #fff;
+    border-radius: 50px;
+    border: 1px solid#2b3990;
+    margin: 0 0 0 10px;
+    transition: 0.2s;
+}
+
+
+._social_04 ol li:nth-child(1):hover {
+    background: #3b5998;
+    border: 1px solid#3b5998;
+    color: #fff;
+    transition: 0.2s;
+}
+
+
+._social_04 ol li:nth-child(2):hover {
+    background: #00aced;
+    border: 1px solid#00aced;
+    color: #fff;
+    transition: 0.2s;
+}
+
+._social_04 ol li:nth-child(3):hover {
+    background: #c32f10;
+    border: 1px solid#c32f10;
+    color: #fff;
+    transition: 0.2s;
+}
+
+._social_04 ol li:nth-child(4):hover {
+    background: #E1306C;
+    border: 1px solid#E1306C;
+    color: #fff;
+    transition: 0.2s;
+}
+
+._social_04 ol li:nth-child(5):hover {
+    background: #0177b5;
+    border: 1px solid#0177b5;
+    color: #fff;
+    transition: 0.2s;
+}
+
+._social_04 ol li:hover,
+._social_04 ol li:hover i {
+    color: #fff;
+}
+
+._social_04 ol li i:nth-child(1):hover {
+    color: #fff;
+}
+
+._social_04 ol li i {
+    font-size: 15px;
+    color: #2b3990;
+}
+
+.nm_lk {
+    text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+    form {
+        width: 100%;
+        padding: 25px 30px 25px;
+    }
+
+    .btn-login button {
+        padding: 12px 44%;
+    }
+
+    .form-group .row {
+        font-size: 16px;
+    }
+    .form-group .row .div-1 {
+        width: 50%;
+    }
+
+    .form-group .row .div-2 {
+        width: 50%;
+    }
+
+    .form-group p {
+        font-size: 16px;
+    }
+    
+}
+
+
+@media screen and (max-width: 900px) {
+    form {
+        width: 100%;
+        padding: 25px 30px 25px;
+    }
+
+    .btn-login button {
+        padding: 12px 44%;
+    }
+
+    .form-group .row .div-1 {
+        width: 50%;
+    }
+
+    .form-group .row .div-2 {
+        width: 50%;
+    }
+
+}
+
+
+@media screen and (max-width: 1500px) {
+    form {
+        width: 100%;
+        padding: 25px 30px 25px;
+    }
+
+    .btn-login button {
+        padding: 12px 44%;
+    }
+
+    .form-group .row .div-1 {
+        width: 50%;
+    }
+
+    .form-group .row .div-2 {
+        width: 50%;
+    }
+
+}
+
+.pwd:hover {
+    color: blue;
+}
+
+

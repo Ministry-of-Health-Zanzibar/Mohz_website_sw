@@ -1,0 +1,115 @@
+<div *ngIf="isLoading" class="loading-spinner">
+  <span>Loading...</span>
+</div>
+<div *ngIf="!isLoading">
+  <div class="container-fluid">
+    <div class="card">
+      <h5 class="pt-4 ps-2">Announcements</h5>
+      <hr />
+      <div class="mb-0 float-end">
+        <div class="btn-group ms-2 me-2">
+          <div class="btn-group btn-fa-sync me-2">
+            <button
+              (click)="getAllAnnouncements()"
+              mat-raised-button
+              color="primary"
+            >
+              <i *ngIf="refreshing" class="fas fa-sync fa-spin"></i>
+              <i *ngIf="!refreshing" class="fas fa-sync"></i>
+            </button>
+          </div>
+          <span>
+            <input
+              matInput
+              class="form-control me-sm-2 shadow-none"
+              type="search"
+              placeholder="Search..."
+              (keyup)="applyFilter($event)"
+              #input
+            />
+          </span>
+        </div>
+        <button
+          mat-flat-button
+          (click)="handleOpenAddDialogForm()"
+          color="primary"
+          type="button"
+          class="float-end me-3"
+        >
+          <i class="fa fa-plus me-2"></i>Add Announcement
+        </button>
+      </div>
+
+      <table mat-table [dataSource]="dataSource">
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef class="fw-bold">No.</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+
+        <!-- Title Column -->
+        <ng-container matColumnDef="announcementTitle">
+          <th mat-header-cell *matHeaderCellDef class="fw-bold">
+            Announcement Title
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element?.announcement_title }}
+          </td>
+        </ng-container>
+
+        <!-- Title Column -->
+        <ng-container matColumnDef="announcementContent">
+          <th mat-header-cell *matHeaderCellDef class="fw-bold">
+            Announcement Content
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element?.announcement_content }}
+          </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef class="fw-bold">Action</th>
+          <td mat-cell *matCellDef="let element">
+            <!-- <emr-segmented theme="simple" class="-mx-2"> -->
+            <!-- <emr-segmented-button value="toogleData"> -->
+            <mat-slide-toggle [checked]="true" color="primary">
+            </mat-slide-toggle>
+            <!-- </emr-segmented-button> -->
+
+            <!-- <emr-segmented-button value="edit_squareData"> -->
+              <button
+              (click)="handleOpenEditDialogForm(element)"
+              mat-mini-fab
+              color="primary"
+              matTooltip="Edit"
+              class="mt-2 me-2"
+            >
+              <mat-icon class="font-icon">edit_square</mat-icon>
+            </button>
+            <!-- </emr-segmented-button> -->
+            <!-- </emr-segmented> -->
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell tablefoter" colspan="4">
+            No data matching the filter " {{ input.value }} "
+          </td>
+        </tr>
+      </table>
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        aria-label="Select page of permission"
+        class="pt-3"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>
