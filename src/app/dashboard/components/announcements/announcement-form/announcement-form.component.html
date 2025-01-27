@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <h5 class="font-semibold mt-4">{{ dialogData.action }} Announcement</h5>
+  <form [formGroup]="announcementForm">
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-md-12 mt-3">
+        <mat-label>Announcement Title</mat-label>
+        <input
+          type="text"
+          formControlName="announcementTitle"
+          matInput
+          class="text-black"
+        />
+        <mat-error
+          *ngIf="
+            announcementForm.controls.announcementTitle.touched &&
+            announcementForm.controls.announcementTitle.invalid
+          "
+        >
+          <span
+            *ngIf="announcementForm.controls.announcementTitle.errors.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-md-12 mt-4">
+        <mat-label>Announcement Content</mat-label>
+        <textarea
+          formControlName="announcementContent"
+          matInput
+          rows="5"
+          class="text-black"
+        ></textarea>
+        <mat-error
+          *ngIf="
+            announcementForm.controls.announcementContent.touched &&
+            announcementForm.controls.announcementContent.invalid
+          "
+        >
+          <span *ngIf="announcementForm.controls.announcementContent.errors?.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <mat-dialog-actions align="end">
+    <button mat-flat-button color="accent" mat-dialog-close>Cancel</button>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="!(announcementForm.valid && announcementForm.dirty)"
+      (click)="handleAnnouncementSubmit()"
+    >
+      {{ action }} Data
+    </button>
+  </mat-dialog-actions>
+</div>
+
