@@ -24,6 +24,7 @@ export const routes: Routes = [
     redirectTo: 'temp',
     pathMatch: 'full',
   },
+  
   {
     path: '**',
     loadChildren: () => import('./errors/errors.module').then((m) => m.ErrorsModule),
