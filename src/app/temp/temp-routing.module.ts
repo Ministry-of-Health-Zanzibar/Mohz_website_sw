@@ -4,9 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'blog',
+    redirectTo: 'main',
     pathMatch: 'full',
   },
+
   {
     path: 'about-us',
     title: 'About Us',
@@ -21,6 +22,157 @@ const routes: Routes = [
     loadComponent: () =>
       import('./components/blog/blog.component').then((c) => c.BlogComponent),
   },
+
+  {
+    path: 'main',
+    title: 'Main',
+    loadComponent: () =>
+      import('./layout/main/main.component').then((c) => c.MainComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./layout/home/home.component').then ((c) => c.HomeComponent)
+      },
+      {
+        path: 'welcome-message',
+        loadComponent: () =>
+          import('./Pages/About/welcome-message/welcome-message.component').then ((c) => c.WelcomeMessageComponent)
+      },
+
+      {
+        path: 'mission-vision',
+        loadComponent: () =>
+          import('./Pages/About/vission-mission/vission-mission.component').then ((c) => c.VissionMissionComponent)
+      },
+
+      {
+        path: 'organization-structure',
+        loadComponent: () =>
+          import('./Pages/About/organization-structure/organization-structure.component').then ((c) => c.OrganizationStructureComponent)
+      },
+      {
+        path: 'administrative-hr',
+        loadComponent: () =>
+          import('./Pages/Department/administration-hr/administration-hr.component').then ((c) => c.AdministrationHrComponent)
+      },
+
+      {
+        path: 'altanativemedicine',
+        loadComponent: () =>
+          import('./Pages/Department/altanative-medicine/altanative-medicine.component').then ((c) => c.AltanativeMedicineComponent)
+      },
+
+      {
+        path: 'cgcl',
+        loadComponent: () =>
+          import('./Pages/Department/cgcl/cgcl.component').then ((c) => c.CgclComponent)
+      },
+
+      {
+        path: 'chief-pharmacist',
+        loadComponent: () =>
+          import('./Pages/Department/cheif-pharmacist/cheif-pharmacist.component').then ((c) => c.CheifPharmacistComponent)
+      },
+
+      {
+        path: 'curretive',
+        loadComponent: () =>
+          import('./Pages/Department/curretive/curretive.component').then ((c) => c.CurretiveComponent)
+      },
+      {
+        path: 'medical-store',
+        loadComponent: () =>
+          import('./Pages/Department/medical-store/medical-store.component').then ((c) => c.MedicalStoreComponent)
+      },
+
+      {
+        path: 'mhh',
+        loadComponent: () =>
+          import('./Pages/Department/mhh/mhh.component').then ((c) => c.MhhComponent)
+      },
+
+      {
+        path: 'nursing-midwifery',
+        loadComponent: () =>
+          import('./Pages/Department/nursing-midwifery/nursing-midwifery.component').then ((c) => c.NursingMidwiferyComponent)
+      },
+
+      {
+        path: 'planning',
+        loadComponent: () =>
+          import('./Pages/Department/planning/planning.component').then ((c) => c.PlanningComponent)
+      },
+      
+      {
+        path: 'preventive-health-education',
+        loadComponent: () =>
+          import('./Pages/Department/preventive-health-education/preventive-health-education.component').then ((c) => c.PreventiveHealthEducationComponent)
+      },
+
+      {
+        path: 'zfda',
+        loadComponent: () =>
+          import('./Pages/Department/zfda/zfda.component').then ((c) => c.ZfdaComponent)
+      },
+
+      {
+        path: 'irch',
+        loadComponent: () =>
+          import('./Pages/Programme/irch/irch.component').then ((c) => c.IrchComponent)
+      },
+      {
+        path: 'ncd',
+        loadComponent: () =>
+          import('./Pages/Programme/ncd/ncd.component').then ((c) => c.NcdComponent)
+      },
+
+      {
+        path: 'ntd',
+        loadComponent: () =>
+          import('./Pages/Programme/ntd/ntd.component').then ((c) => c.NtdComponent)
+      },
+
+      {
+        path: 'zamep',
+        loadComponent: () =>
+          import('./Pages/Programme/zamep/zamep.component').then ((c) => c.ZamepComponent)
+      },
+
+      {
+        path: 'zihtlp',
+        loadComponent: () =>
+          import('./Pages/Programme/zihtlp/zihtlp.component').then ((c) => c.ZihtlpComponent)
+      },
+      
+      {
+        path: 'project',
+        loadComponent: () =>
+          import('./Pages/Projects/project/project.component').then ((c) => c.ProjectComponent)
+      },
+      
+      {
+        path: 'tender',
+        loadComponent: () =>
+          import('./Pages/Tenders/tender/tender.component').then ((c) => c.TenderComponent)
+      },
+
+      {
+        path: 'blog',
+        loadComponent: () =>
+          import('./Pages/Blogs/blog/blog.component').then ((c) => c.BlogComponent)
+      },
+
+      {
+        path: 'team-leader',
+        loadComponent: () =>
+          import('./components/TeamLeader/team-leader/team-leader.component').then ((c) => c.TeamLeaderComponent)
+      },
+
+      
+    ]
+  },
+ 
 ];
 
 @NgModule({

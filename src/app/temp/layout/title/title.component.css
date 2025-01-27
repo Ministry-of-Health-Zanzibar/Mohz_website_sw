@@ -1,0 +1,15 @@
+.container-fluid {
+    background-color: #f8f9fa; 
+    border-bottom: 4px solid #28a745; 
+  }
+  
+  h1 {
+    font-family: "Arial", sans-serif;
+    color: #28a745; 
+  }
+  
+  h3 {
+    font-family: "Arial", sans-serif;
+    color: #6c757d; 
+  }
+  
