@@ -23,6 +23,7 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { ChangeDetectorRef } from '@angular/core';
+import { DisplayNewsImageComponent } from '../display-news-image/display-news-image.component';
 
 interface News {
   id: string;
@@ -70,6 +71,7 @@ export class NewsListComponent implements OnInit, OnDestroy, AfterViewInit {
     'id',
     'newsTitle',
     'newsDescription',
+    'image',
     'action',
   ];
 
@@ -167,8 +169,28 @@ export class NewsListComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
+  // Open Display Dialog
+  public handleOpenDisplayDialogImage(data: any): void {
+    const config = new MatDialogConfig();
+    config.data = {
+      data: data,
+    };
+    config.width = '600px';
+
+    const dialogRef = this.dialog.open(DisplayNewsImageComponent, config);
+    this.router.events.subscribe(() => {
+      dialogRef.close();
+    });
+
+    const sub =
+      dialogRef.componentInstance.onDisplayNewsImageEventEmitter.subscribe(
+        () => {
+          this.getAllNews();
+        }
+      );
+  }
+
   ngOnDestroy(): void {
     this.onDestroy.next();
   }
 }
-

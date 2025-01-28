@@ -63,6 +63,22 @@
           </td>
         </ng-container>
 
+        <!-- Image Column -->
+        <ng-container matColumnDef="image">
+          <th mat-header-cell *matHeaderCellDef class="fw-bold">News Image</th>
+          <td mat-cell *matCellDef="let element">
+            <span type="button" (click)="handleOpenDisplayDialogImage(element)">
+              <img
+                [src]="element?.news_photo"
+                class="rounded-circle"
+                width="40"
+                height="40"
+                alt="News Image"
+              />
+            </span>
+          </td>
+        </ng-container>
+
         <!-- Weight Column -->
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef class="fw-bold">Action</th>
@@ -71,22 +87,22 @@
             </mat-slide-toggle> -->
 
             <button
-            (click)="handleOpenEditDialogForm(element)"
-            mat-mini-fab
-            color="primary"
-            matTooltip="Edit"
-            class="mt-2 me-2"
-          >
-            <mat-icon class="font-icon">edit_square</mat-icon>
-          </button>
-          <button
-            mat-mini-fab
-            color="accent"
-            matTooltip="Delete"
-            class="mt-2"
-          >
-            <mat-icon class="font-icon">delete</mat-icon>
-          </button>
+              (click)="handleOpenEditDialogForm(element)"
+              mat-mini-fab
+              color="primary"
+              matTooltip="Edit"
+              class="mt-2 me-2"
+            >
+              <mat-icon class="font-icon">edit_square</mat-icon>
+            </button>
+            <button
+              mat-mini-fab
+              color="accent"
+              matTooltip="Delete"
+              class="mt-2"
+            >
+              <mat-icon class="font-icon">delete</mat-icon>
+            </button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

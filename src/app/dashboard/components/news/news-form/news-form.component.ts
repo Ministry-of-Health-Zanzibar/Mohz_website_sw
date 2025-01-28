@@ -43,6 +43,8 @@ export class NewsFormComponent {
   public newsForm: any = FormGroup;
   public dialogAction: any = 'CREATE NEW';
   public action: any = 'Save';
+  public previewImage: string | ArrayBuffer | null = null;
+  public fileError: string | null = null;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -54,6 +56,7 @@ export class NewsFormComponent {
     this.newsForm = this.formBuilder.group({
       newsTitle: ['', Validators.required],
       newsDescription: ['', Validators.required],
+      newsPhotos: ['', Validators.required],
     });
   }
 
@@ -87,16 +90,13 @@ export class NewsFormComponent {
 
   // Add
   public onAddNews(): void {
-    var formData = this.newsForm.value;
-    var data = {
-      news_title: formData.newsTitle,
-      news_descriptions: formData.newsDescription,
-    };
+    const formData = new FormData();
+      formData.append('news_title', this.newsForm.get('newsTitle')?.value);
+      formData.append('news_descriptions', this.newsForm.get('newsDescription')?.value);
+      formData.append('news_photos', this.newsForm.get('newsPhotos')?.value);
 
-    this.newsService.createNews(data).subscribe(
+    this.newsService.createNews(formData).subscribe(
       (response: any) => {
-        // console.log(this.newsForm.value);
-        // console.log(response.statusCode);
         this.dialogRef.close();
         this.onAddNewsEventEmitter.emit();
         if (response.statusCode === 201) {
@@ -140,6 +140,38 @@ export class NewsFormComponent {
         }
       }
     );
+  }
+
+
+  public onImageSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input?.files?.length) {
+      const file = input.files[0];
+
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        this.fileError = 'Please select a valid image file.';
+        return;
+      }
+
+      // Validate file size
+      if (file.size > 5 * 1024 * 1024) {
+        // 5 MB size limit
+        this.fileError = 'Image size should not exceed 5MB.';
+        return;
+      }
+
+      // Clear error and set file in form
+      this.fileError = null;
+      this.newsForm.get('newsPhotos')?.setValue(file);
+
+      // Create a preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewImage = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   ngOnDestroy(): void {
