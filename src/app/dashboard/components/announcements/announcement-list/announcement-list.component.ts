@@ -160,6 +160,27 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
       );
   }
 
+
+  // Delete
+  public deleteAnnouncement(data: any): void {
+    console.log(data);
+    this.announcementService.deleteAnnouncement(data.id).subscribe(
+      (response: any) => {
+        if (response.statusCode === 204) {
+          this.getAllAnnouncements();
+          this.toastService.toastSuccess(response.message);
+        } else {
+          this.toastService.toastError('An error occured while processing');
+        }
+      },
+      (errorResponse: HttpErrorResponse) => {
+        if (errorResponse) {
+          this.toastService.toastError(errorResponse.error.message);
+        }
+      }
+    );
+  }
+
   ngOnDestroy(): void {
     this.onDestroy.next();
   }

@@ -43,6 +43,25 @@
           >
         </mat-error>
       </mat-form-field>
+      <!-- Image -->
+      <div class="col-md-12 mt-2">
+        <div class="mb-2">
+            <mat-label>Image</mat-label>
+        </div>
+        <input type="file" (change)="onImageSelected($event)"
+        accept="image/*" class="form-control"/>
+        <mat-error *ngIf="fileError">
+            {{ fileError }}
+          </mat-error>
+      </div>
+      <div *ngIf="previewImage" class="mt-3">
+        <img
+          [src]="previewImage"
+          alt="Preview"
+          class="img-fluid"
+          style="max-height: 200px"
+        />
+      </div>
     </div>
   </form>
 

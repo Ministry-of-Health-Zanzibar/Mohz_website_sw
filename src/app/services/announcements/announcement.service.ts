@@ -31,6 +31,6 @@ export class AnnouncementService {
   }
 
   public deleteAnnouncement(id: number): Observable<any> {
-    return this.httpClient.delete<any>(`${this.apiUrl}/api/announcements/${id}`);
+    return this.httpClient.delete<any>(`${this.apiUrl}/api/announcements/delete/${id}`);
   }
 }

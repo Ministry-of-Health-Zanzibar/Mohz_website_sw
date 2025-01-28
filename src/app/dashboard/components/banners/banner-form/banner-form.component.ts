@@ -74,7 +74,7 @@ export class BannerFormComponent implements OnInit {
     this.bannerForm.patchValue({
       title: this.dialogData.data.banner_title,
       description: this.dialogData.data.banner_descriptions,
-      // image: this.dialogData.data.banner_image,
+      image: this.dialogData.data.banner_image,
     });
 
     if (this.dialogData.action === 'EDIT') {
@@ -109,7 +109,7 @@ export class BannerFormComponent implements OnInit {
           // console.log(response);
           this.dialogRef.close();
           this.onAddBannerEventEmitter.emit();
-          if (response.statusCode === 200) {
+          if (response.statusCode === 201) {
             this.toastService.toastSuccess(response.message);
           } else {
             this.toastService.toastError(response.message);
@@ -137,7 +137,7 @@ export class BannerFormComponent implements OnInit {
         (response: any) => {
           this.dialogRef.close();
           this.onEditNewsEventEmitter.emit();
-          if (response.statusCode === 200) {
+          if (response.statusCode === 201) {
             this.toastService.toastSuccess(response.message);
           } else {
             this.toastService.toastError(response.message);

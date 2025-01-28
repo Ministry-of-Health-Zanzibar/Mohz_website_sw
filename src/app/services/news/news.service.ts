@@ -24,7 +24,7 @@ export class NewsService {
   }
 
   public updateNews(data: any): Observable<any> {
-    return this.httpClient.put<any>(`${this.apiUrl}/api/update-news`, data);
+    return this.httpClient.post<any>(`${this.apiUrl}/api/update-news`, data);
   }
 
   public deleteNews(id: number): Observable<any> {

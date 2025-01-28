@@ -24,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BannerFormComponent } from '../banner-form/banner-form.component';
+import { DisplayBennerImageComponent } from '../display-benner-image/display-benner-image.component';
 
 @Component({
   selector: 'app-banner-list',
@@ -139,6 +140,7 @@ export class BannerListComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
+
   // Open Edit Dialog
   public handleOpenEditDialogForm(data: any): void {
     console.log(data);
@@ -160,6 +162,27 @@ export class BannerListComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     );
   }
+
+
+    // Open Display Dialog
+    public handleOpenDisplayDialogImage(data: any): void {
+      const config = new MatDialogConfig();
+      config.data = {
+        data: data
+      };
+      config.width = '600px';
+  
+      const dialogRef = this.dialog.open(DisplayBennerImageComponent, config);
+      this.router.events.subscribe(() => {
+        dialogRef.close();
+      });
+  
+      const sub = dialogRef.componentInstance.onDisplayBannerImageEventEmitter.subscribe(
+        () => {
+          this.getAllBanners();
+        }
+      );
+    }
 
   ngOnDestroy(): void {
     this.onDestroy.next();
