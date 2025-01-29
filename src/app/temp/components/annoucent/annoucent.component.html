@@ -1,20 +1,20 @@
-<div class="container mt-5">
+<div class="announcent container">
     <div class="row">
       <div class="col-12">
         <!-- Announcements Heading with Sitari -->
-        <h2 class="text-center mb-4">
+        <h2 class="text-center text-primary mb-4">
           Latest Announcements
         </h2>
       </div>
       <!-- Single Announcement Card -->
-      <div class="col-md-4">
+      <div class="col-md-4 mt-4" *ngFor="let announcement of announcements">
         <div class="card mb-4 h-100">
           <div class="card-body">
             <h5 class="card-title">
-              📣 Announcement Title 1
+              📣 {{announcement?.announcement_title}}
             </h5>
             <p class="card-text">
-              This is a brief description of the first announcement. You can add more content here if needed.
+            {{announcement?.announcement_content}}
             </p>
             <a href="assets/announcement1.pdf" class="btn btn-primary" target="_blank">
               Download PDF
@@ -24,7 +24,7 @@
       </div>
   
       <!-- Single Announcement Card -->
-      <div class="col-md-4">
+      <!-- <div class="col-md-4 mt-4">
         <div class="card mb-4 h-100">
           <div class="card-body">
             <h5 class="card-title">
@@ -39,9 +39,9 @@
           </div>
         </div>
       </div>
-  
+   -->
       <!-- Single Announcement Card -->
-      <div class="col-md-4">
+      <!-- <div class="col-md-4 mt-4">
         <div class="card mb-4 h-100">
           <div class="card-body">
             <h5 class="card-title">
@@ -55,6 +55,6 @@
             </a>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>

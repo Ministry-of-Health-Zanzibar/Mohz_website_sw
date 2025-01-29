@@ -169,6 +169,30 @@ const routes: Routes = [
           import('./components/TeamLeader/team-leader/team-leader.component').then ((c) => c.TeamLeaderComponent)
       },
 
+      {
+        path: 'health',
+        loadComponent: () =>
+          import('./components/our-service/health-registration-lecenses/health-registration-lecenses.component').then ((c) => c.HealthRegistrationLecensesComponent)
+      },
+
+      {
+        path: 'vaccination',
+        loadComponent: () =>
+          import('./components/our-service/vaccinations/vaccinations.component').then ((c) => c.VaccinationsComponent)
+      },
+
+      {
+        path: 'preventive-health',
+        loadComponent: () =>
+          import('./components/our-service/preventive-health-education/preventive-health-education.component').then ((c) => c.PreventiveHealthEducationComponent)
+      },
+
+      {
+        path: 'contact-us',
+        loadComponent: () =>
+          import('./Pages/Contacts/contact/contact.component').then ((c) => c.ContactComponent)
+      },
+
       
     ]
   },

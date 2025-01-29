@@ -1,1 +1,64 @@
-<p>contact works!</p>
+<div class="container py-5">
+   <div class="card card-body">
+    <h2 class="text-center text-primary mb-4">Contact us</h2>
+    <hr class="text-primary">
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-header bg-success text-white">
+            <h5>Postal Address</h5>
+          </div>
+          <div class="card-body">
+            <p><strong>Address:</strong> Ministry of Health Zanzibar, P.O. Box 236 Zanzibar
+            </p>
+            <p><strong>Email:</strong> {{email}}</p>
+            <p><strong>Phone:</strong> +255 24 2231614
+            </p>
+            <p><strong>Fax:</strong> +255 24 2231613
+            </p>
+            <p><strong>Web:</strong> www.mohz.go.tz
+            </p>
+          </div>
+        </div>      
+      </div>
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-header bg-success text-white">
+            <h5>Feedback, Complaints, or Suggestions</h5>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group mb-3">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" class="form-control" name="fullname" />
+              </div>
+              <div class="form-group mb-3">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control" required name="email" />
+              </div>
+              <div class="form-group mb-3">
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" class="form-control" name="phone" />
+              </div>
+              <div class="form-group mb-3">
+                <label for="organization">Organization</label>
+                <input type="text" id="organization" class="form-control" name="organization" />
+              </div>
+              <div class="form-group mb-3">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" class="form-control" name="subject" />
+              </div>
+              <div class="form-group mb-3">
+                <label for="message">Message</label>
+                <textarea id="message" class="form-control" rows="4" name="message"></textarea>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-success w-100">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>    
+    </div>
+   </div>
+</div>

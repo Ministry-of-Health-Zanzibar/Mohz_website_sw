@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -8,6 +8,14 @@ import { RouterModule } from '@angular/router';
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.css'
 })
-export class TopbarComponent {
+export class TopbarComponent implements OnInit {
+
+  constructor(){}
+
+  ngOnInit(): void {
+      
+  }
+
+  email = 'info@mohz.go.tz'
 
 }
