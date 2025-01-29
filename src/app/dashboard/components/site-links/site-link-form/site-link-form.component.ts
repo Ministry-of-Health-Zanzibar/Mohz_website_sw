@@ -95,7 +95,6 @@ export class SiteLinkFormComponent {
       (response: any) => {
         this.dialogRef.close();
         this.onAddNewsEventEmitter.emit();
-        this.toastService.toastSuccess('Created Successfully.');
         if (response.statusCode === 201) {
           this.toastService.toastSuccess(response.message);
         } else {

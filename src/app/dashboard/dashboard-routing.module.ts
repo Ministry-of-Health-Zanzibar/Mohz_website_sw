@@ -17,12 +17,44 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'team-list',
+        title: '',
+        loadComponent: () =>
+          import('./components/teams/team-list/team-list.component').then(
+            (c) => c.TeamListComponent
+          ),
+      },
+      {
+        path: 'team-form',
+        title: '',
+        loadComponent: () =>
+          import('./components/teams/team-form/team-form.component').then(
+            (c) => c.TeamFormComponent
+          ),
+      },
+      {
+        path: 'user-list',
+        title: '',
+        loadComponent: () =>
+          import('./components/users/user-list/user-list.component').then(
+            (c) => c.UserListComponent
+          ),
+      },
+      {
+        path: 'user-form',
+        title: '',
+        loadComponent: () =>
+          import('./components/users/user-form/user-form.component').then(
+            (c) => c.UserFormComponent
+          ),
+      },
+      {
         path: 'announcement-list',
         title: '',
         loadComponent: () =>
-          import('./components/announcements/announcement-list/announcement-list.component').then(
-            (c) => c.AnnouncementListComponent
-          ),
+          import(
+            './components/announcements/announcement-list/announcement-list.component'
+          ).then((c) => c.AnnouncementListComponent),
       },
       {
         path: 'news-list',
@@ -44,17 +76,17 @@ const routes: Routes = [
         path: 'comment-list',
         title: '',
         loadComponent: () =>
-          import('./components/comments/coment-list/coment-list.component').then(
-            (c) => c.ComentListComponent
-          ),
+          import(
+            './components/comments/coment-list/coment-list.component'
+          ).then((c) => c.ComentListComponent),
       },
       {
         path: 'comment-form',
         title: '',
         loadComponent: () =>
-          import('./components/comments/coment-form/coment-form.component').then(
-            (c) => c.ComentFormComponent
-          ),
+          import(
+            './components/comments/coment-form/coment-form.component'
+          ).then((c) => c.ComentFormComponent),
       },
       {
         path: 'banner-list',
@@ -76,17 +108,17 @@ const routes: Routes = [
         path: 'site-link-list',
         title: '',
         loadComponent: () =>
-          import('./components/site-links/site-link-list/site-link-list.component').then(
-            (c) => c.SiteLinkListComponent
-          ),
+          import(
+            './components/site-links/site-link-list/site-link-list.component'
+          ).then((c) => c.SiteLinkListComponent),
       },
       {
         path: 'site-link-form',
         title: '',
         loadComponent: () =>
-          import('./components/site-links/site-link-form/site-link-form.component').then(
-            (c) => c.SiteLinkFormComponent
-          ),
+          import(
+            './components/site-links/site-link-form/site-link-form.component'
+          ).then((c) => c.SiteLinkFormComponent),
       },
     ],
   },
