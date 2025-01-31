@@ -1,54 +1,48 @@
-<div class="news container py-5 ">
-    <h1 class="display-5 text-primary text-center mb-4">News & Events</h1>
-    <div class="row">
-        <!-- Column ya Events -->
-        <div class="col-md-6">
-            <h3 class="text-primary mb-4">Events</h3>
-            <!-- Row ya Kwanza -->
-            <div class="card mb-4">
-                <img src="../../../../assets/img/mh.rais.jpeg" alt="Event Image" class="card-img-top" style="height: 200px; object-fit: cover;">
-                <div class="card-body">
-                    <p class="text-muted"><small>Posted on: January 15, 2025</small></p>
-                    <p class="text-muted"><small>By: John Doe</small></p>
-                    <h4 class="card-title">Event Title 1</h4>
-                    <p class="card-text">Short description of the event goes here. It provides more details about the event.</p>
-                </div>
-            </div>
-            <!-- Row ya Pili -->
-            <div class="card mb-4">
-                <img src="../../../../assets/img/mh.wazir.jpeg" alt="Event Image" class="card-img-top" style="height: 200px; object-fit: cover;">
-                <div class="card-body">
-                    <p class="text-muted"><small>Posted on: January 12, 2025</small></p>
-                    <p class="text-muted"><small>By: Jane Smith</small></p>
-                    <h4 class="card-title">Event Title 2</h4>
-                    <p class="card-text">Details about this event including date, time, and location.</p>
-                </div>
-            </div>
+<div class="news container py-5">
+  <h1 class="display-5 text-primary text-center mb-4">News & Events</h1>
+  <div class="row">
+    
+    <!-- Events Column -->
+    <div class="col-md-6">
+      <h3 class="text-primary mb-4">Events</h3>
+      <ng-container *ngFor="let event of events; let i = index">
+        <div class="card mb-4" *ngIf="i < 3">
+          <img
+            [src]="event.image_urls?.length ? event.image_urls[0] : 'assets/default-image.jpg'"
+            alt="Event Image"
+            class="card-img-top"
+            style="height: 200px; object-fit: cover;"
+          />
+          <div class="card-body">
+            <p class="text-muted"><small>Posted on: {{ event.created_at }}</small></p>
+            <h4 class="card-title">{{ event.news_title }}</h4>
+            <p class="card-text">{{ event.news_descriptions }}</p>
+          </div>
         </div>
-
-        <!-- Column ya News -->
-        <div class="col-md-6">
-            <h3 class="text-primary mb-4">News</h3>
-            <!-- Row ya Kwanza -->
-            <div class="card mb-4">
-                <img src="../../../../assets/img/mh.rais.jpeg" alt="Event Image" class="card-img-top" style="height: 200px; object-fit: cover;">
-                <div class="card-body">
-                    <p class="text-muted"><small>Posted on: January 15, 2025</small></p>
-                    <p class="text-muted"><small>By: John Doe</small></p>
-                    <h4 class="card-title">Event Title 1</h4>
-                    <p class="card-text">Short description of the event goes here. It provides more details about the event.</p>
-                </div>
-            </div>
-            <!-- Row ya Pili -->
-            <div class="card mb-4">
-                <img src="../../../../assets/img/mh.wazir.jpeg" alt="Event Image" class="card-img-top" style="height: 200px; object-fit: cover;">
-                <div class="card-body">
-                    <p class="text-muted"><small>Posted on: January 12, 2025</small></p>
-                    <p class="text-muted"><small>By: Jane Smith</small></p>
-                    <h4 class="card-title">Event Title 2</h4>
-                    <p class="card-text">Details about this event including date, time, and location.</p>
-                </div>
-            </div>
-        </div>
+      </ng-container>
     </div>
+    
+    <!-- News Column -->
+    <div class="col-md-6">
+      <h3 class="text-primary mb-4">News</h3>
+      <ng-container *ngFor="let newsItem of news; let i = index">
+        <div class="card mb-4" *ngIf="i < 2">
+          <img
+            [src]="newsItem.news_photos?.length ? newsItem.image_urls[0] : 'assets/default-image.jpg'"
+            alt="News Image"
+            class="card-img-top"
+            style="height: 200px; object-fit: cover;"
+          />
+          <div class="card-body">
+            <p class="text-muted"><small>Posted on: {{ newsItem.created_at }}</small></p>
+            <p class="text-muted"><small>By: {{ newsItem.author || 'Unknown' }}</small></p>
+            <h4 class="card-title">{{ newsItem.news_title }}</h4>
+            <p class="card-text">{{ newsItem.news_descriptions }}</p>
+          </div>
+        </div>
+        
+      </ng-container>
+    </div>
+
+  </div>
 </div>

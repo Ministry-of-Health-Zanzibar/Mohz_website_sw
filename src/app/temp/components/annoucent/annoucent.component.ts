@@ -3,12 +3,18 @@ import { AnnouncementService } from '../../../services/announcements/announcemen
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '../../../services/toast/toast.service';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-annoucent',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterModule
   ],
   templateUrl: './annoucent.component.html',
   styleUrl: './annoucent.component.css'

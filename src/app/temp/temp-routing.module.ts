@@ -193,6 +193,17 @@ const routes: Routes = [
           import('./Pages/Contacts/contact/contact.component').then ((c) => c.ContactComponent)
       },
 
+      {
+        path: 'publications',
+        loadComponent: () =>
+          import('./Pages/Publication/publication-links/publication-links.component').then ((c) => c.PublicationLinksComponent)
+      },
+      {
+        path: 'more-annoucement',
+        loadComponent: () =>
+          import('./components/annoucent/more-annoucement/more-annoucement.component').then ((c) => c.MoreAnnoucementComponent)
+      },
+
       
     ]
   },
