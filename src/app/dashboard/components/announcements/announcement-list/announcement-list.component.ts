@@ -1,5 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AnnouncementService } from '../../../../services/announcements/announcement.service';
@@ -18,7 +24,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ToastService } from '../../../../services/toast/toast.service';
 import { ChangeDetectorRef } from '@angular/core';
 
-
 @Component({
   selector: 'app-announcement-list',
   standalone: true,
@@ -32,12 +37,14 @@ import { ChangeDetectorRef } from '@angular/core';
     FormsModule,
     MatButtonModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
   ],
   templateUrl: './announcement-list.component.html',
   styleUrl: './announcement-list.component.css',
 })
-export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class AnnouncementListComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
   public readonly onDestroy = new Subject<void>();
   public isLoading: boolean = false;
   public refreshing!: boolean;
@@ -74,7 +81,7 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
   }
 
   ngOnInit(): void {
-    console.log('LOADING...')
+    console.log('LOADING...');
     this.getAllAnnouncements();
   }
 
@@ -102,10 +109,18 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
           }
         },
         (errorResponse: HttpErrorResponse) => {
-          this.refreshing  = false;
+          this.refreshing = false;
           this.toastService.toastError(errorResponse.error.message);
         }
       );
+  }
+
+  // Kupunguza ukubwa wa text
+  public truncateDescription(description: string, words: number): string {
+    if (!description) return '';
+    const wordArray = description.split(' ');
+    if (wordArray.length <= words) return description;
+    return wordArray.slice(0, words).join(' ') + '...';
   }
 
   public applyFilter(event: Event) {
@@ -122,7 +137,8 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
     config.data = {
       action: 'CREATE NEW',
     };
-    config.width = '600px';
+    config.width = '800px';
+    config.height = '600px';
 
     const dialogRef = this.dialog.open(AnnouncementFormComponent, config);
     this.router.events.subscribe(() => {
@@ -145,7 +161,8 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
       action: 'EDIT',
       data: data,
     };
-    config.width = '600px';
+    config.width = '800px';
+    config.height = '600px';
 
     const dialogRef = this.dialog.open(AnnouncementFormComponent, config);
     this.router.events.subscribe(() => {
@@ -160,13 +177,12 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
       );
   }
 
-
   // Delete
   public deleteAnnouncement(data: any): void {
     console.log(data);
     this.announcementService.deleteAnnouncement(data.id).subscribe(
       (response: any) => {
-        if (response.statusCode === 204) {
+        if (response.statusCode === 200) {
           this.getAllAnnouncements();
           this.toastService.toastSuccess(response.message);
         } else {
@@ -179,6 +195,11 @@ export class AnnouncementListComponent implements OnInit, OnDestroy, AfterViewIn
         }
       }
     );
+  }
+
+  // View Ann Details
+  public navigateToAnnouncementDetails(data: any): void {
+    this.router.navigate(['/dashboard/announcement-details', data.id]);
   }
 
   ngOnDestroy(): void {

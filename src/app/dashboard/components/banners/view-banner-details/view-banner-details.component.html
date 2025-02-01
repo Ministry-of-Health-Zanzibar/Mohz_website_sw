@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <div class="card p-3">
+      <div class="mb-4">
+        <h5 class="fw-bold">
+          <i class="fa-sharp fa-solid fa-star-of-life me-2 fa-sm"></i>Banner Title
+        </h5>
+        <p class="ps-5 pe-3">
+         {{ banner?.banner_title}}
+        </p>
+      </div>
+      <div class="mb-4">
+        <h5 class="fw-bold">
+          <i class="fa-sharp fa-solid fa-star-of-life me-2 fa-sm"> </i>Banner Description
+          Content
+        </h5>
+        <p class="ps-5 pe-3">
+          {{ banner?.banner_descriptions}}
+        </p>
+      </div>
+      <div class="mb-4">
+        <h5 class="fw-bold">
+          <i class="fa-sharp fa-solid fa-star-of-life me-2 fa-sm"> </i>Banner Image
+          Content
+        </h5>
+        <p class="ps-5 pe-3 mt-4">
+          <img src="{{ banner?.banner_image }}" class="img-fluid" alt="Banner Image">
+        </p>
+      </div>
+      <div class="">
+          <button routerLink="../../banner-list" mat-flat-button color="warn" class="float-end">
+              <!-- <mat-icon>keyboard_arrow_left</mat-icon> -->
+              <mat-icon>arrow_back_ios</mat-icon>
+              Back
+          </button>
+      </div>
+    </div>
+  </div>
+  

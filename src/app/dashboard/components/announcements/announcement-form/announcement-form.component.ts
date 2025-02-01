@@ -38,8 +38,6 @@ import { AuthenticationService } from '../../../../services/auth/authentication.
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
-    // MatLabelModule,
-    // MatErrorModule,
   ],
   templateUrl: './announcement-form.component.html',
   styleUrl: './announcement-form.component.css',
@@ -139,10 +137,11 @@ export class AnnouncementFormComponent {
           // console.log(response.statusCode);
           this.dialogRef.close();
           this.onEditAnnouncementEventEmitter.emit();
-          if (response.statusCode == 200) {
+          if (response.statusCode == 201) {
             this.toastService.toastSuccess(response.message);
           } else {
-            this.toastService.toastError('An error occured while processing.');
+            this.toastService.toastError(response.message);
+            // this.toastService.toastError('An error occured while processing.');
           }
         },
         (errorResponse: HttpErrorResponse) => {
@@ -152,6 +151,7 @@ export class AnnouncementFormComponent {
         }
       );
   }
+
 
   ngOnDestroy(): void {
     this.onDestroy.next();

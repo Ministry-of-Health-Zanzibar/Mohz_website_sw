@@ -111,6 +111,14 @@ export class SiteLinkListComponent implements OnInit, OnDestroy, AfterViewInit {
       );
   }
 
+  // Kupunguza ukubwa wa text
+  public truncateDescription(description: string, words: number): string {
+    if (!description) return '';
+    const wordArray = description.split(' ');
+    if (wordArray.length <= words) return description;
+    return wordArray.slice(0, words).join(' ') + '...';
+  }
+
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -125,7 +133,9 @@ export class SiteLinkListComponent implements OnInit, OnDestroy, AfterViewInit {
     config.data = {
       action: 'CREATE NEW',
     };
-    config.width = '600px';
+    // config.width = '600px';
+    config.width = '800px';
+    config.height = '770px';
 
     const dialogRef = this.dialog.open(SiteLinkFormComponent, config);
     this.router.events.subscribe(() => {
@@ -147,7 +157,9 @@ export class SiteLinkListComponent implements OnInit, OnDestroy, AfterViewInit {
       action: 'EDIT',
       data: data,
     };
-    config.width = '600px';
+    // config.width = '600px';
+    config.width = '800px';
+    config.height = '770px';
 
     const dialogRef = this.dialog.open(SiteLinkFormComponent, config);
     this.router.events.subscribe(() => {
@@ -159,6 +171,32 @@ export class SiteLinkListComponent implements OnInit, OnDestroy, AfterViewInit {
         this.getAllSitelinks();
       }
     );
+  }
+
+  // Delete
+  public deleteSitelink(data: any): void {
+    console.log(data);
+    this.siteLinkService.deleteSitelink(data.id).subscribe(
+      (response: any) => {
+        if (response.statusCode === 200) {
+          this.getAllSitelinks();
+          this.toastService.toastSuccess(response.message);
+        } else {
+          // this.toastService.toastError('An error occured while processing');
+          this.toastService.toastError(response.message);
+        }
+      },
+      (errorResponse: HttpErrorResponse) => {
+        if (errorResponse) {
+          this.toastService.toastError(errorResponse.error.message);
+        }
+      }
+    );
+  }
+
+  // View
+  public navigateToSitelinkDetails(data: any): void {
+    this.router.navigate(['/dashboard/site-link-details', data.id]);
   }
 
   ngOnDestroy(): void {

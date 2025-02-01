@@ -83,7 +83,7 @@ export class BannerFormComponent implements OnInit {
       this.bannerForm.patchValue({
         title: this.dialogData.data.banner_title,
         description: this.dialogData.data.banner_descriptions,
-        // image: this.dialogData.data.banner_image,
+        image: this.dialogData.data.banner_image,
       });
     }
   }

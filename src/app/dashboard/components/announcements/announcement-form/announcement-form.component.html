@@ -1,5 +1,9 @@
 <div class="container-fluid">
-  <h5 class="font-semibold mt-4">{{ dialogData.action }} Announcement</h5>
+  <!-- <h5 class="font-semibold mt-4">{{ dialogData.action }} Announcement</h5> -->
+  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'CREATE NEW'">
+    Create New Announcement
+  </h5>
+  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'EDIT'">Update Announcement</h5>
   <form [formGroup]="announcementForm">
     <div class="row">
       <mat-form-field appearance="outline" class="col-md-12 mt-3">
@@ -28,7 +32,7 @@
         <textarea
           formControlName="announcementContent"
           matInput
-          rows="5"
+          rows="13"
           class="text-black"
         ></textarea>
         <mat-error

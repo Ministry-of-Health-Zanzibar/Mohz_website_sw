@@ -112,6 +112,16 @@ export class BannerListComponent implements OnInit, OnDestroy, AfterViewInit {
       );
   }
 
+  // Kupunguza ukubwa wa text
+  public truncateDescription(description: string, words: number): string {
+    if (!description) return '';
+    const wordArray = description.split(' ');
+    if (wordArray.length <= words) return description;
+    return wordArray.slice(0, words).join(' ') + '...';
+  }
+
+
+
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -126,7 +136,9 @@ export class BannerListComponent implements OnInit, OnDestroy, AfterViewInit {
     config.data = {
       action: 'CREATE NEW',
     };
-    config.width = '600px';
+    
+    config.width = '800px';
+    config.height = '650px';
 
     const dialogRef = this.dialog.open(BannerFormComponent, config);
     this.router.events.subscribe(() => {
@@ -140,16 +152,16 @@ export class BannerListComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-
   // Open Edit Dialog
   public handleOpenEditDialogForm(data: any): void {
-    console.log(data);
+    // console.log(data);
     const config = new MatDialogConfig();
     config.data = {
       action: 'EDIT',
       data: data,
     };
-    config.width = '600px';
+    config.width = '800px';
+    config.height = '650px';
 
     const dialogRef = this.dialog.open(BannerFormComponent, config);
     this.router.events.subscribe(() => {
@@ -163,26 +175,53 @@ export class BannerListComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
+  // Open Display Dialog
+  public handleOpenDisplayDialogImage(data: any): void {
+    const config = new MatDialogConfig();
+    config.data = {
+      data: data,
+    };
+    config.width = '800px';
+    config.height = '600px';
 
-    // Open Display Dialog
-    public handleOpenDisplayDialogImage(data: any): void {
-      const config = new MatDialogConfig();
-      config.data = {
-        data: data
-      };
-      config.width = '600px';
-  
-      const dialogRef = this.dialog.open(DisplayBennerImageComponent, config);
-      this.router.events.subscribe(() => {
-        dialogRef.close();
-      });
-  
-      const sub = dialogRef.componentInstance.onDisplayBannerImageEventEmitter.subscribe(
+    const dialogRef = this.dialog.open(DisplayBennerImageComponent, config);
+    this.router.events.subscribe(() => {
+      dialogRef.close();
+    });
+
+    const sub =
+      dialogRef.componentInstance.onDisplayBannerImageEventEmitter.subscribe(
         () => {
           this.getAllBanners();
         }
       );
-    }
+  }
+
+   // Delete
+   public deleteBanner(data: any): void {
+    console.log(data);
+    this.bannerService.deleteBanner(data.id).subscribe(
+      (response: any) => {
+        if (response.statusCode === 200) {
+          this.getAllBanners();
+          this.toastService.toastSuccess(response.message);
+        } else {
+          this.toastService.toastError(response.message);
+          // this.toastService.toastError('An error occured while processing');
+        }
+      },
+      (errorResponse: HttpErrorResponse) => {
+        if (errorResponse) {
+          this.toastService.toastError(errorResponse.error.message);
+        }
+      }
+    );
+  }
+
+  // View
+  public navigateToBannerDetails(data: any): void {
+    this.router.navigate(['/dashboard/banner-details', data.id]);
+  }
 
   ngOnDestroy(): void {
     this.onDestroy.next();
