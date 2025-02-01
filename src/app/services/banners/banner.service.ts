@@ -23,7 +23,13 @@ private apiUrl = 'http://localhost:9095';
     return this.httpClient.post<any>(`${this.apiUrl}/api/update-banner`, data);
   }
 
-  // public deleteNews(id: number): Observable<any> {
-  //   return this.httpClient.delete<any>(`${this.apiUrl}/api/delete-news/${id}`);
-  // }
+  public findBannerById(id: number): Observable<any> {
+    return this.httpClient.get<any>(`${this.apiUrl}/api/banners/${id}`);
+  }
+
+
+  public deleteBanner(id: number): Observable<any> {
+    return this.httpClient.delete<any>(`${this.apiUrl}/api/delete-banner/${id}`);
+  }
+
 }

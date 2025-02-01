@@ -119,6 +119,14 @@ export class NewsListComponent implements OnInit, OnDestroy, AfterViewInit {
       );
   }
 
+  // Kupunguza ukubwa wa text
+  public truncateDescription(description: string, words: number): string {
+    if (!description) return '';
+    const wordArray = description.split(' ');
+    if (wordArray.length <= words) return description;
+    return wordArray.slice(0, words).join(' ') + '...';
+  }
+
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -133,7 +141,8 @@ export class NewsListComponent implements OnInit, OnDestroy, AfterViewInit {
     config.data = {
       action: 'CREATE NEW',
     };
-    config.width = '600px';
+    config.width = '800px';
+    config.height = '650px';
 
     const dialogRef = this.dialog.open(NewsFormComponent, config);
     this.router.events.subscribe(() => {
@@ -155,7 +164,8 @@ export class NewsListComponent implements OnInit, OnDestroy, AfterViewInit {
       action: 'EDIT',
       data: data,
     };
-    config.width = '600px';
+    config.width = '800px';
+    config.height = '650px';
 
     const dialogRef = this.dialog.open(NewsFormComponent, config);
     this.router.events.subscribe(() => {
@@ -176,6 +186,7 @@ export class NewsListComponent implements OnInit, OnDestroy, AfterViewInit {
       data: data,
     };
     config.width = '600px';
+    config.height = '600px';
 
     const dialogRef = this.dialog.open(DisplayNewsImageComponent, config);
     this.router.events.subscribe(() => {
@@ -188,6 +199,33 @@ export class NewsListComponent implements OnInit, OnDestroy, AfterViewInit {
           this.getAllNews();
         }
       );
+  }
+
+  // View
+  public navigateToNewsDetails(data: any): void {
+    this.router.navigate(['/dashboard/news-details', data.id]);
+  }
+
+
+   // Delete
+   public deleteNews(data: any): void {
+    console.log(data);
+    this.newsService.deleteNews(data.id).subscribe(
+      (response: any) => {
+        if (response.statusCode === 200) {
+          this.getAllNews();
+          this.toastService.toastSuccess(response.message);
+        } else {
+          this.toastService.toastError(response.message);
+          // this.toastService.toastError('An error occured while processing');
+        }
+      },
+      (errorResponse: HttpErrorResponse) => {
+        if (errorResponse) {
+          this.toastService.toastError(errorResponse.error.message);
+        }
+      }
+    );
   }
 
   ngOnDestroy(): void {

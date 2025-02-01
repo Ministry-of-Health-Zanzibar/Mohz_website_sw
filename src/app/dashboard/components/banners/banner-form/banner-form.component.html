@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <!-- <h5 class="font-semibold mt-4">{{ dialogData.action }} News</h5> -->
   <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'CREATE NEW'">
-    Create New News
+    Create New Banner
   </h5>
-  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'EDIT'">Update News</h5>
+  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'EDIT'">Update Banner</h5>
   <form [formGroup]="bannerForm">
     <div class="row">
       <mat-form-field appearance="outline" class="col-md-12 mt-3">
@@ -32,7 +32,7 @@
         <textarea
           formControlName="description"
           matInput
-          rows="5"
+          rows="11"
           class="text-black"
         ></textarea>
         <mat-error
@@ -48,7 +48,7 @@
       </mat-form-field>
 
       <!-- Image -->
-      <div class="col-md-12 mt-2">
+      <div class="col-md-12 mt-2 mb-3">
         <div class="mb-2">
             <mat-label>Image</mat-label>
         </div>

@@ -1,0 +1,103 @@
+<div class="container-fluid">
+  <!-- <h5 class="font-semibold mt-4">{{ dialogData.action }} News</h5> -->
+  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'CREATE NEW'">
+    Create New Post
+  </h5>
+  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'EDIT'">Update Post</h5>
+  <form [formGroup]="postForm">
+    <div class="row">
+      <mat-form-field appearance="outline" class="col-md-12 mt-3">
+        <mat-label>Post Title</mat-label>
+        <input
+          type="text"
+          formControlName="postTitle"
+          matInput
+          class="text-black"
+        />
+        <mat-error
+          *ngIf="
+            postForm.controls.postTitle.touched &&
+            postForm.controls.postTitle.invalid
+          "
+        >
+          <span *ngIf="postForm.controls.postTitle.errors.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="dialogData.action === 'EDIT'" appearance="outline" class="col-md-12 mt-3">
+        <mat-label>Type Name</mat-label>
+        <input matInput formControlName="typeName" readonly />
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="col-md-12 mt-3">
+        <mat-label>Post Type</mat-label>
+        <mat-select disableRipple formControlName="postTypeId">
+          <mat-option *ngFor="let postType of postTypes" [value]="postType.id">
+            {{ postType.type_name }}
+          </mat-option>
+        </mat-select>
+        <mat-error class="error-message" *ngIf="postForm.get('postTypeId')?.datatouched && postForm.get('postTypeId')?.invalid">
+          <span *ngIf="postForm.get('postTypeId')?.errors?.['required']">This field is mandatory</span>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Desc -->
+      <mat-form-field appearance="outline" class="col-md-12 mt-4">
+        <mat-label>Post Description</mat-label>
+        <textarea
+          formControlName="postDescription"
+          matInput
+          rows="8"
+          class="text-black"
+        ></textarea>
+        <mat-error
+          *ngIf="
+            postForm.controls.postDescription.touched &&
+            postForm.controls.postDescription.invalid
+          "
+        >
+          <span *ngIf="postForm.controls.postDescription.errors?.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Image -->
+      <div class="col-md-12 mt-2">
+        <div class="mb-2">
+          <mat-label>Post File</mat-label>
+        </div>
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          class="form-control"
+        />
+        <mat-error *ngIf="fileError">
+          {{ fileError }}
+        </mat-error>
+      </div>
+      <div *ngIf="previewImage" class="mt-3">
+        <img
+          [src]="previewImage"
+          alt="Preview"
+          class="img-fluid"
+          style="max-height: 200px"
+        />
+      </div>
+    </div>
+  </form>
+
+  <mat-dialog-actions align="end" class="mt-3">
+    <button mat-flat-button color="accent" mat-dialog-close>Cancel</button>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="!(postForm.valid && postForm.dirty)"
+      (click)="handlePostSubmit()"
+    >
+      {{ action }} Data
+    </button>
+  </mat-dialog-actions>
+</div>

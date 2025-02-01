@@ -45,6 +45,11 @@ export class NewsFormComponent {
   public action: any = 'Save';
   public previewImage: string | ArrayBuffer | null = null;
   public fileError: string | null = null;
+  // public previewImages!: Promise<string>[];
+  public previewImages!: any;
+  // selectedFiles: any;
+  // public previewImages: string[] = [];
+
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -56,7 +61,7 @@ export class NewsFormComponent {
     this.newsForm = this.formBuilder.group({
       newsTitle: ['', Validators.required],
       newsDescription: ['', Validators.required],
-      newsPhotos: ['', Validators.required],
+      newsPhotos: ['',],
     });
   }
 
@@ -88,13 +93,20 @@ export class NewsFormComponent {
     }
   }
 
-  // Add
+
+
   public onAddNews(): void {
     const formData = new FormData();
-      formData.append('news_title', this.newsForm.get('newsTitle')?.value);
-      formData.append('news_descriptions', this.newsForm.get('newsDescription')?.value);
-      formData.append('news_photos', this.newsForm.get('newsPhotos')?.value);
-
+    formData.append('news_title', this.newsForm.get('newsTitle')?.value);
+    formData.append('news_descriptions', this.newsForm.get('newsDescription')?.value);
+  
+    const files = this.newsForm.get('newsPhotos')?.value;
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        formData.append('news_photos[]', files[i]); // Append as an array
+      }
+    }
+  
     this.newsService.createNews(formData).subscribe(
       (response: any) => {
         this.dialogRef.close();
@@ -112,20 +124,52 @@ export class NewsFormComponent {
       }
     );
   }
+  
 
   // Update
-  public onUpdateNews(): void {
-    var formData = this.newsForm.value;
-    var data = {
-      id: this.dialogData.data.id,
-      news_title: formData.newsTitle,
-      news_descriptions: formData.newsDescription,
-    };
+  // public onUpdateNews(): void {
+  //   var formData = this.newsForm.value;
+  //   var data = {
+  //     id: this.dialogData.data.id,
+  //     news_title: formData.newsTitle,
+  //     news_descriptions: formData.newsDescription,
+  //   };
 
-    this.newsService.updateNews(data).subscribe(
+  //   this.newsService.updateNews(data).subscribe(
+  //     (response: any) => {
+  //       // console.log(this.newsForm.value);
+  //       // console.log(response.statusCode);
+  //       this.dialogRef.close();
+  //       this.onEditNewsEventEmitter.emit();
+  //       if (response.statusCode === 201) {
+  //         this.toastService.toastSuccess(response.message);
+  //       } else {
+  //         this.toastService.toastError(response.message);
+  //       }
+  //     },
+  //     (errorResponse: HttpErrorResponse) => {
+  //       if (errorResponse) {
+  //         this.toastService.toastError(errorResponse.error.message);
+  //       }
+  //     }
+  //   );
+  // }
+
+  public onUpdateNews(): void {
+    const formData = new FormData();
+    formData.append('id', this.dialogData.data.id);
+    formData.append('news_title', this.newsForm.get('newsTitle')?.value);
+    formData.append('news_descriptions', this.newsForm.get('newsDescription')?.value);
+  
+    const files = this.newsForm.get('newsPhotos')?.value;
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        formData.append('news_photos[]', files[i]); // Append as an array
+      }
+    }
+  
+    this.newsService.updateNews(formData).subscribe(
       (response: any) => {
-        // console.log(this.newsForm.value);
-        // console.log(response.statusCode);
         this.dialogRef.close();
         this.onEditNewsEventEmitter.emit();
         if (response.statusCode === 201) {
@@ -141,38 +185,62 @@ export class NewsFormComponent {
       }
     );
   }
+  
 
 
-  public onImageSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input?.files?.length) {
-      const file = input.files[0];
+public onImageSelected(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input?.files?.length) {
+    const files = Array.from(input.files);
 
-      // Validate file type
-      if (!file.type.startsWith('image/')) {
-        this.fileError = 'Please select a valid image file.';
-        return;
-      }
+    this.fileError = null;
+    this.newsForm.get('newsPhotos')?.setValue(files); // Store files array
 
-      // Validate file size
-      if (file.size > 5 * 1024 * 1024) {
-        // 5 MB size limit
-        this.fileError = 'Image size should not exceed 5MB.';
-        return;
-      }
-
-      // Clear error and set file in form
-      this.fileError = null;
-      this.newsForm.get('newsPhotos')?.setValue(file);
-
-      // Create a preview
+    // Generate previews
+    this.previewImages = [];
+    files.forEach((file) => {
       const reader = new FileReader();
       reader.onload = () => {
-        this.previewImage = reader.result;
+        this.previewImages.push(reader.result as string);
       };
       reader.readAsDataURL(file);
-    }
+    });
   }
+}
+
+// WITH INDEX
+// public onImageSelected(event: Event): void {
+//   const input = event.target as HTMLInputElement;
+//   if (input?.files?.length) {
+//     const files = Array.from(input.files);
+
+//     this.fileError = null;
+//     this.newsForm.get('newsPhotos')?.setValue(files); // Store files array
+
+//     // Reset previews and selected files
+//     this.previewImages = [];
+//     this.selectedFiles = files; // Store selected files
+
+//     files.forEach((file) => {
+//       const reader = new FileReader();
+//       reader.onload = () => {
+//         this.previewImages.push(reader.result as string);
+//       };
+//       reader.readAsDataURL(file);
+//     });
+//   }
+// }
+
+// public removeImage(index: number): void {
+//   this.previewImages.splice(index, 1);
+//   this.selectedFiles.splice(index, 1);
+
+//   // Update form control with the modified file list
+//   this.newsForm.get('newsPhotos')?.setValue(this.selectedFiles.length ? this.selectedFiles : null);
+// }
+
+
+  
 
   ngOnDestroy(): void {
     this.onDestroy.next();

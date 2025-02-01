@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import {
   ReactiveFormsModule,
 } from '@angular/forms';
@@ -27,7 +27,7 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './display-benner-image.component.html',
   styleUrl: './display-benner-image.component.css',
 })
-export class DisplayBennerImageComponent {
+export class DisplayBennerImageComponent implements OnInit {
   public onDisplayBannerImageEventEmitter = new EventEmitter();
   public bannerImageUrl!: string;
 

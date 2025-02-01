@@ -1,4 +1,5 @@
-<div class="d-flex justify-content-center align-items-center mt-4">
+<!-- Current -->
+<!-- <div class="d-flex justify-content-center align-items-center mt-4">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" >
       
       <div class="carousel-indicators">
@@ -42,9 +43,53 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
+  </div> -->
+  <!-- End of current -->
+
+<!-- New -->
+<div class="d-flex justify-content-center align-items-center mt-4">
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    
+    <!-- Carousel Indicators -->
+    <div class="carousel-indicators">
+      <button 
+        *ngFor="let banner of banners; let i = index" 
+        type="button" 
+        data-bs-target="#carouselExampleIndicators" 
+        [attr.data-bs-slide-to]="i" 
+        [class.active]="i === 0" 
+        [attr.aria-current]="i === 0 ? 'true' : null"
+        [attr.aria-label]="'Slide ' + (i + 1)">
+      </button>
+    </div>
+
+    <!-- Carousel Items -->
+    <div class="carousel-inner">
+      <div *ngFor="let banner of banners; let i = index" class="carousel-item" [class.active]="i === 0">
+        <!-- <img [src]="banner.banner_image" class="d-block w-100" [alt]="'Banner ' + (i + 1)"> -->
+        <img [src]="banner.banner_image" class="d-block mx-auto w-75" [alt]="'Banner ' + (i + 1)">
+
+        <div class="carousel-caption d-none d-md-block">
+          <h5>{{ banner.banner_title }}</h5>
+          <p>{{ banner.banner_descriptions }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+
   </div>
+</div>
 
-
+ <!-- End of new -->
    <!-- old carousel -->
    <!-- <div class="container mt-4">
     <div class="row">
