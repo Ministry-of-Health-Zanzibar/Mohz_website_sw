@@ -203,8 +203,11 @@ const routes: Routes = [
         loadComponent: () =>
           import('./components/annoucent/more-annoucement/more-annoucement.component').then ((c) => c.MoreAnnoucementComponent)
       },
-
-      
+      {
+        path: 'news/:id',
+        loadComponent: () =>
+          import('./components/news/read-more-news/read-more-news.component').then ((c) => c.ReadMoreNewsComponent)
+      },
     ]
   },
  

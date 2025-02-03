@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { NgwWowService } from 'ngx-wow';
 
 @Component({
   selector: 'app-root',
@@ -14,4 +15,9 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class AppComponent {
   title = 'mohz-website-ui';
+
+  constructor(private wowService: NgwWowService) {
+    // this.wowService.init();
+  }
+
 }

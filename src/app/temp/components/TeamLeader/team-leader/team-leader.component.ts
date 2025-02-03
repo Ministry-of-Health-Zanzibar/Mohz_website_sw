@@ -8,27 +8,30 @@ import { HttpErrorResponse } from '@angular/common/http';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './team-leader.component.html',
-  styleUrl: './team-leader.component.css'
+  styleUrl: './team-leader.component.css',
 })
-export class TeamLeaderComponent  implements OnInit{
-  team: any;
-  constructor(private teamService:TeamService){}
+export class TeamLeaderComponent implements OnInit {
+  teams: any;
+  public isLoading!: boolean;
+
+  constructor(private teamService: TeamService) {}
 
   ngOnInit(): void {
-    this. getAllTeam();
-      
+    this.getAllTeam();
   }
 
-
   public getAllTeam(): void {
-             this.teamService.getAllTeams().subscribe((response: any) => {
-                this.team = response.data;
-                console.log(response.data);
-              },
-              (errorResponse: HttpErrorResponse) => {
-                console.log(errorResponse.error.message);
-              },
-            );
-          }
-
+    this.isLoading = true;
+    this.teamService.getAllTeams().subscribe(
+      (response: any) => {
+        this.teams = response.data;
+        // console.log('TEAM: ', response.data);
+        this.isLoading = false;
+      },
+      (errorResponse: HttpErrorResponse) => {
+        console.log(errorResponse.error.message);
+        this.isLoading = false;
+      }
+    );
+  }
 }

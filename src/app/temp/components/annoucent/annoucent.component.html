@@ -1,33 +1,28 @@
-<div class="announcent container">
-    <div class="row">
-      <div class="col-12">
-        <!-- Announcements Heading with Sitari -->
-        <h2 class="text-center text-primary mb-4">
-          Latest Announcements
-        </h2>
+<!-- Features Start -->
+<div class="container-fluid feature mt-5">
+  <div class="container">
+      <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+          <h1 class="text-primary text-capitalize">latest announcements</h1>
+          <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
+          </p>
       </div>
-      <!-- Single Announcement Card -->
-      <div class="col-md-4 mt-4" *ngFor="let announcement of announcements, let i = index">
-        <div class="card mb-4 h-100" *ngIf="i < 3">
-          <div class="card-body">
-            <h5 class="card-title">
-              📣 {{announcement?.announcement_title}}
-            </h5>
-            <p class="card-text">
-            {{announcement?.announcement_content}}
-            </p>
-            <a href="assets/announcement1.pdf" class="btn btn-primary" target="_blank">
-              <mat-icon>cloud_download</mat-icon>
-              Download PDF
-            </a>
+      <span *ngIf="isLoading" class="loading-spinner">
+        <span>Loading...</span>
+      </span>
+      <div *ngIf="!isLoading" class="row g-4">
+          <div *ngFor="let announcement of announcements; let i = index;" class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
+              <div class="feature-item p-4" *ngIf="i < 8">
+                  <div class="feature-icon p-4 mb-4">
+                      <!-- <i class="fas fa-chart-line fa-4x text-primary"></i> -->
+                      <i class="fa-solid fa-bullhorn fa-4x text-primary"></i>
+
+                  </div>
+                  <h4 class="fw-bold">{{ announcement?.announcement_title }}</h4>
+                  <p class="mb-4">{{ truncateDescription(announcement?.announcement_content, 20) }}</p>
+                  <a class="btn btn-primary rounded-pill py-2 px-4" href="#">View More</a>
+              </div>
           </div>
-        </div>
       </div>
-  
-      <div style="margin-left: 35rem;">
-        <button class="btn btn-primary" routerLink="/temp/main/more-annoucement">
-          <i class="bi bi-arrow-right"></i>
-          view more</button>
-      </div>
-    </div>
   </div>
+</div>
+<!-- Features End -->

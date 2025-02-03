@@ -21,10 +21,10 @@ import { RouterModule } from '@angular/router';
 })
 export class AnnoucentComponent implements OnInit {
  public announcements: any;
+  public isLoading!: boolean;
 
   constructor(
     private annoucementService: AnnouncementService,
-    private toastService: ToastService,
   ) {}
 
 
@@ -33,14 +33,25 @@ export class AnnoucentComponent implements OnInit {
   }
 
   public getAllAnnouncements(): void {
+    this.isLoading = true;
     this.annoucementService.getAllAnnouncements().subscribe((response: any) => {
         this.announcements = response.data;
-        console.log(response.data);
+        this.isLoading = false;
+        // console.log(response.data);
       },
       (errorResponse: HttpErrorResponse) => {
+        this.isLoading = false;
         console.log(errorResponse.error.message);
       },
     );
+  }
+
+   // Kupunguza ukubwa wa text
+   public truncateDescription(description: string, words: number): string {
+    if (!description) return '';
+    const wordArray = description.split(' ');
+    if (wordArray.length <= words) return description;
+    return wordArray.slice(0, words).join(' ') + '...';
   }
 
 }

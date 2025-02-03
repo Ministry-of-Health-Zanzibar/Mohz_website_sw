@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { BannerService } from '../../../services/banners/banner.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-carousel',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    MatButtonModule
   ],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.css',

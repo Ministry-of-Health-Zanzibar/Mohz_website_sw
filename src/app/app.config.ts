@@ -6,16 +6,18 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { AuthenticationInterceptor } from './interceptors/authentication.interceptor';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { NgwWowModule } from 'ngx-wow';
+import { NgwWowService } from 'ngx-wow';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
+    // NgwWowModule,
     provideAnimations(),
-    // BrowserModule,
-    // BrowserAnimationsModule,
+    NgwWowService,
     provideHttpClient(),
     provideToastr({
       timeOut: 10000,

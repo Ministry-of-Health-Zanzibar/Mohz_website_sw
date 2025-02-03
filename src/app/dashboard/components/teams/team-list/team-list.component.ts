@@ -184,6 +184,27 @@ export class TeamListComponent implements OnInit, OnDestroy, AfterViewInit {
       );
   }
 
+
+   // Delete
+   public deleteTeam(data: any): void {
+    this.teamService.deleteTeam(data.id).subscribe(
+      (response: any) => {
+        if (response.statusCode === 200) {
+          this.getAllTeams();
+          this.toastService.toastSuccess(response.message);
+        } else {
+          // this.toastService.toastError('An error occured while processing');
+          this.toastService.toastError(response.message);
+        }
+      },
+      (errorResponse: HttpErrorResponse) => {
+        if (errorResponse) {
+          this.toastService.toastError(errorResponse.error.message);
+        }
+      }
+    );
+  }
+
   ngOnDestroy(): void {
     this.onDestroy.next();
   }

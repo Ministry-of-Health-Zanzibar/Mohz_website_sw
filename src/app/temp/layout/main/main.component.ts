@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { TitleComponent } from "../title/title.component";
-import { TopbarComponent } from "../topbar/topbar.component";
-import { MenusComponent } from "../menus/menus.component";
-import { CarouselComponent } from "../../components/carousel/carousel.component";
+import { Component, OnInit } from '@angular/core';
+import { TitleComponent } from '../title/title.component';
+import { TopbarComponent } from '../topbar/topbar.component';
+import { MenusComponent } from '../menus/menus.component';
+import { CarouselComponent } from '../../components/carousel/carousel.component';
 import { RouterModule } from '@angular/router';
-import { FooterComponent } from "../footer/footer.component";
+import { FooterComponent } from '../footer/footer.component';
+import { NgwWowService } from 'ngx-wow';
 
 @Component({
   selector: 'app-main',
@@ -15,11 +16,15 @@ import { FooterComponent } from "../footer/footer.component";
     MenusComponent,
     CarouselComponent,
     RouterModule,
-    FooterComponent
-],
+    FooterComponent,
+  ],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.css'
+  styleUrl: './main.component.css',
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
+  constructor(private wowService: NgwWowService) {}
 
+  ngOnInit(): void {
+    this.wowService.init();
+  }
 }
