@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BannerService {
-private apiUrl = 'http://localhost:9095';
+  private apiUrl = 'http://localhost:9095';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -18,7 +18,6 @@ private apiUrl = 'http://localhost:9095';
     return this.httpClient.get<any>(`${this.apiUrl}/api/banners`);
   }
 
-
   public updateBanner(data: any): Observable<any> {
     return this.httpClient.post<any>(`${this.apiUrl}/api/update-banner`, data);
   }
@@ -27,9 +26,9 @@ private apiUrl = 'http://localhost:9095';
     return this.httpClient.get<any>(`${this.apiUrl}/api/banners/${id}`);
   }
 
-
   public deleteBanner(id: number): Observable<any> {
-    return this.httpClient.delete<any>(`${this.apiUrl}/api/delete-banner/${id}`);
+    return this.httpClient.delete<any>(
+      `${this.apiUrl}/api/delete-banner/${id}`
+    );
   }
-
 }

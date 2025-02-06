@@ -248,6 +248,54 @@ const routes: Routes = [
             './components/publications/publication-list/publication-list.component'
           ).then((c) => c.PublicationListComponent),
       },
+      {
+        path: 'about-us-list',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/about-us/about-us-list/about-us-list.component'
+          ).then((c) => c.AboutUsListComponent),
+      },
+      {
+        path: 'about-us-form',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/about-us/about-us-form/about-us-form.component'
+          ).then((c) => c.AboutUsFormComponent),
+      },
+      {
+        path: 'about-us-details/:id',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/about-us/view-about-us-details/view-about-us-details.component'
+          ).then((c) => c.ViewAboutUsDetailsComponent),
+      },
+      {
+        path: 'our-service-list',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/our-services/our-service-list/our-service-list.component'
+          ).then((c) => c.OurServiceListComponent),
+      },
+      {
+        path: 'our-service-form',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/our-services/our-service-form/our-service-form.component'
+          ).then((c) => c.OurServiceFormComponent),
+      },
+      {
+        path: 'service-details/:id',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/our-services/view-service-details/view-service-details.component'
+          ).then((c) => c.ViewServiceDetailsComponent),
+      },
     ],
   },
 ];
