@@ -1,40 +1,17 @@
-<div class="tenders-container">
-    <h1 class="title">Tenders</h1>
-    <div class="row">
-      <!-- New Tenders -->
-      <div class="col-md-6">
-        <div class="section-header">
-          <h3>New tenders</h3>
-        </div>
-        <ol class="tender-list">
-          <li>
-            <span class="new-icon">🌟 NEW</span>
-            General Procurement Notice (TMCHIP)
-            <a href="#" class="view-link">View</a>
-            <button class="btn download-btn">Download</button>
-          </li>
-        </ol>
-      </div>
+<div class="container d-flex flex-column justify-content-center align-items-center mt-4 text-center mb-5">
+  <h1 class="mb-4">Tenders</h1>
   
-      <!-- Ended/Previous Tenders -->
-      <div class="col-md-6">
-        <div class="section-header">
-          <h3>Ended / previous tenders</h3>
-        </div>
-        <ol class="tender-list">
-          <li>
-            Tender for the Construction of Wete Hospital in Zanzibar
-            <a href="#" class="view-link">View</a>
-            <button class="btn download-btn">Download</button>
-          </li>
-          <li>
-            List-of-Contractors-Queries
-            <a href="#" class="view-link">View</a>
-            <button class="btn download-btn">Download</button>
-          </li>
-          <!-- Add more tenders as needed -->
-        </ol>
-      </div>
-    </div>
+  <div *ngIf="tenderList.length === 0" class="alert alert-info w-50">
+    Loading tenders...
   </div>
-  
+
+  <!-- Ordered List kwa tenders ikiwa data ipo -->
+  <ol class="list-group list-group-numbered w-50" *ngIf="tenderList.length > 0">
+    <li *ngFor="let project of tenderList" class="list-group-item d-flex justify-content-between align-items-center">
+      <span class="fw-bold text-primary">🌟 {{ project?.post_title }}</span>
+      <a [href]="project?.post_filepath" target="_blank" class="btn btn-sm btn-outline-primary">
+        View Document
+      </a>
+    </li>
+  </ol>
+</div>

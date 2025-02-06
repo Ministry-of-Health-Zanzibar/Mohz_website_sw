@@ -7,12 +7,17 @@ import { EventService } from '../../../services/events/event.service';
 import { PostService } from '../../../services/posts/post.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-news',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule],
+  imports: [
+    CommonModule,
+     MatButtonModule,
+      MatIconModule,
+      RouterModule
+    ],
   templateUrl: './news.component.html',
   styleUrl: './news.component.css',
 })
