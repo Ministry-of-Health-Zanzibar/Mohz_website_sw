@@ -2,10 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../../../services/posts/post.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../../../services/posts/post.service';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-project',
