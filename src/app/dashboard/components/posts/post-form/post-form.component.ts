@@ -194,7 +194,7 @@ export class PostFormComponent implements OnInit {
         (response: any) => {
           this.dialogRef.close();
           this.onEditPostEventEmitter.emit();
-          if (response.statusCode === 201) {
+          if (response.statusCode === 200) {
             this.toastService.toastSuccess(response.message);
           } else {
             this.toastService.toastError(response.message);

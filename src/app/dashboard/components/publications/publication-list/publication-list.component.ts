@@ -191,6 +191,19 @@ export class PublicationListComponent
     );
   }
 
+   // Kupunguza ukubwa wa text
+   public truncateDescription(description: string, words: number): string {
+    if (!description) return '';
+    const wordArray = description.split(' ');
+    if (wordArray.length <= words) return description;
+    return wordArray.slice(0, words).join(' ') + '...';
+  }
+
+   // View
+   public navigateToPostDetails(data: any): void {
+    this.router.navigate(['/dashboard/post-details', data.post_id]);
+  }
+
   ngOnDestroy(): void {
     this.onDestroy.next();
   }

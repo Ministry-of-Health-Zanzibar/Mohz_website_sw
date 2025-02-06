@@ -18,8 +18,10 @@
           <button mat-flat-button color="primary">Biography</button>
         </div>
       </div>
+
       <div class="col-md-8 animated fadeInRight">
-        <div
+      <span *ngIf="banners.length === 0" class="alert alert-dark">No data available.</span>
+        <div *ngIf="banners.length !== 0"
         id="carouselExampleIndicators"
         class="carousel slide"
         data-bs-ride="carousel"

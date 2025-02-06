@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -42,13 +42,15 @@ import { AuthenticationService } from '../../../../services/auth/authentication.
   templateUrl: './announcement-form.component.html',
   styleUrl: './announcement-form.component.css',
 })
-export class AnnouncementFormComponent {
+export class AnnouncementFormComponent implements OnInit {
   private readonly onDestroy = new Subject<void>();
   public onAddAnnouncementEventEmitter = new EventEmitter();
   public onEditAnnouncementEventEmitter = new EventEmitter();
   public announcementForm: any = FormGroup;
   public dialogAction: any = 'CREATE NEW';
   public action: any = 'Save';
+  public previewImage: string | ArrayBuffer | null = null;
+  public fileError: string | null = null;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -62,6 +64,7 @@ export class AnnouncementFormComponent {
     this.announcementForm = this.formBuilder.group({
       announcementTitle: ['', Validators.required],
       announcementContent: ['', Validators.required],
+      document: ['', ],
     });
   }
 
@@ -73,6 +76,7 @@ export class AnnouncementFormComponent {
     this.announcementForm.patchValue({
       announcementTitle: this.dialogData.data.announcement_title,
       announcementContent: this.dialogData.data.announcement_content,
+      document: this.dialogData.data.announcement_document,
     });
 
     if (this.dialogData.action === 'EDIT') {
@@ -81,6 +85,7 @@ export class AnnouncementFormComponent {
       this.announcementForm.patchValue({
         announcementTitle: this.dialogData.data.announcement_title,
         announcementContent: this.dialogData.data.announcement_content,
+        document: this.dialogData.data.announcement_document,
       });
     }
   }
@@ -95,22 +100,31 @@ export class AnnouncementFormComponent {
 
   // Add
   public addAnnouncement(): void {
-    var formData = this.announcementForm.value;
-    var data = {
-      announcement_title: formData.announcementTitle,
-      announcement_content: formData.announcementContent,
-    };
+    const formData = new FormData();
+    formData.append(
+      'announcement_title',
+      this.announcementForm.get('announcementTitle')?.value
+    );
+    formData.append(
+      'announcement_content',
+      this.announcementForm.get('announcementContent')?.value
+    );
 
-    this.announcementService.createAnnouncement(data).subscribe(
+    const file = this.announcementForm.get('document')?.value;
+    if (file) {
+      formData.append('announcement_document', file, file.name); // Ensure filename is included
+    }
+
+    this.announcementService.createAnnouncement(formData).subscribe(
       (response: any) => {
-        console.log(this.announcementForm.value);
+        // console.log(this.announcementForm.value);
         this.dialogRef.close();
         this.onAddAnnouncementEventEmitter.emit();
         if (response.statusCode === 201) {
           this.toastService.toastSuccess(response.message);
         } else {
-          this.toastService.toastError('An error occured while processing');
-          // this.toastService.toastError(response.message);
+          // this.toastService.toastError('An error occured while processing');
+          this.toastService.toastError(response.message);
         }
       },
       (errorResponse: HttpErrorResponse) => {
@@ -123,14 +137,23 @@ export class AnnouncementFormComponent {
 
   // Update
   public updateAnnouncement(): void {
-    var formData = this.announcementForm.value;
-    var data = {
-      announcement_title: formData.announcementTitle,
-      announcement_content: formData.announcementContent,
-    };
+    const formData = new FormData();
+    formData.append(
+      'announcement_title',
+      this.announcementForm.get('announcementTitle')?.value
+    );
+    formData.append(
+      'announcement_content',
+      this.announcementForm.get('announcementContent')?.value
+    );
+
+    // const file = this.announcementForm.get('document')?.value;
+    // if (file) {
+      formData.append('announcement_document', this.announcementForm.get('document')?.value); // Ensure filename is included
+    // }
 
     this.announcementService
-      .updateAnnouncement(data, this.dialogData.data.id)
+      .updateAnnouncement(formData, this.dialogData.data.id)
       .subscribe(
         (response: any) => {
           console.log(this.announcementForm.value);
@@ -152,6 +175,59 @@ export class AnnouncementFormComponent {
       );
   }
 
+  // public onFileSelected(event: Event): void {
+  //   const input = event.target as HTMLInputElement;
+  //   if (input?.files?.length) {
+  //     const file = input.files[0];
+
+  //     // Validate file type
+  //     if (!file.type.startsWith('pdf/')) {
+  //       this.fileError = 'Please select a valid file type.';
+  //       return;
+  //     }
+
+  //     // Validate file size
+  //     if (file.size > 5 * 1024 * 1024) {
+  //       // 5 MB size limit
+  //       this.fileError = 'Document size should not exceed 5MB.';
+  //       return;
+  //     }
+
+  //     // Clear error and set file in form
+  //     this.fileError = null;
+  //     this.announcementForm.get('document')?.setValue(file);
+
+  //     // Create a preview
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       this.previewImage = reader.result;
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // }
+
+  public onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input?.files?.length) {
+      const file = input.files[0];
+
+      // Validate file type
+      if (file.type !== 'application/pdf') {
+        this.fileError = 'Please select a valid PDF file.';
+        return;
+      }
+
+      // Validate file size (Max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        this.fileError = 'Document size should not exceed 5MB.';
+        return;
+      }
+
+      // Clear error and set file in form
+      this.fileError = null;
+      this.announcementForm.get('document')?.setValue(file);
+    }
+  }
 
   ngOnDestroy(): void {
     this.onDestroy.next();
