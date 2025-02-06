@@ -8,14 +8,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
 
-  {
-    path: 'about-us',
-    title: 'About Us',
-    loadComponent: () =>
-      import('./components/about-us/about-us.component').then(
-        (c) => c.AboutUsComponent
-      ),
-  },
+
   {
     path: 'blog',
     title: 'Bog',
@@ -29,6 +22,15 @@ const routes: Routes = [
     loadComponent: () =>
       import('./layout/main/main.component').then((c) => c.MainComponent),
     children: [
+      {
+        path: 'about-us',
+        title: 'About Us',
+        loadComponent: () =>
+          import('./components/about-us/about-us.component').then(
+            (c) => c.AboutUsComponent
+          ),
+      },
+
       {
         path: '',
         loadComponent: () =>
