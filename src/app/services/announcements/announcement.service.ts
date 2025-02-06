@@ -27,7 +27,7 @@ export class AnnouncementService {
   }
 
   public updateAnnouncement(data: any, id: number): Observable<any> {
-    return this.httpClient.put<any>(`${this.apiUrl}/api/announcements/update/${id}`, data);
+    return this.httpClient.post<any>(`${this.apiUrl}/api/announcements/update/${id}`, data);
   }
 
   public deleteAnnouncement(id: number): Observable<any> {

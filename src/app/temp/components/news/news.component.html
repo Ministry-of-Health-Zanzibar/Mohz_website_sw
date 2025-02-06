@@ -42,6 +42,8 @@
         </div>
       </div>
     </div> -->
+    
+    
     <div class="row">
       <span *ngIf="isLoading" class="loading-spinner">
         <span>Loading...</span>
@@ -53,7 +55,9 @@
       >
         <div class="row">
           <h5 class="fw-bold text-primary text-uppercase">Lates News</h5>
-          <div class="col-md-12" *ngFor="let news of newses; let i = index">
+          <span *ngIf="newses.length === 0" class="alert alert-dark">No data available.</span>
+          <div *ngIf="newses.length !== 0">
+          <div class="col-md-12"  *ngFor="let news of newses; let i = index">
             <div class="row mb-4 mt-2" *ngIf="i < 5">
               <div class="col-md-6">
                 <div class="service-img">
@@ -95,8 +99,7 @@
       >
         <div class="row">
           <h5 class="fw-bold text-primary text-uppercase">Lates Events</h5>
-          <!-- <hr /> -->
-          <div class="col-md-12" *ngFor="let event of events; let i = index">
+          <div class="col-md-12" *ngFor="let event of events; let i = index;">
             <div class="row mb-4 mt-2" *ngIf="i < 5">
               <div class="col-md-6">
                 <div class="service-img">

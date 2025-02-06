@@ -194,6 +194,11 @@ export class TenderListComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
+  // View
+  public navigateToPostDetails(data: any): void {
+    this.router.navigate(['/dashboard/post-details', data.post_id]);
+  }
+
   ngOnDestroy(): void {
     this.onDestroy.next();
   }

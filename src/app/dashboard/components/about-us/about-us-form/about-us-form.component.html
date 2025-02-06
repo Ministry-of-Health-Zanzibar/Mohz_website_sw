@@ -1,0 +1,152 @@
+<div class="container-fluid">
+  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'CREATE NEW'">
+    Create New AboutUs
+  </h5>
+  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'EDIT'">
+    Update AboutUs
+  </h5>
+  <form [formGroup]="aboutUsForm">
+    <div class="row">
+      <!-- Vision -->
+      <mat-form-field appearance="outline" class="col-md-12 mt-3">
+        <mat-label>Vision</mat-label>
+        <input
+          type="text"
+          formControlName="vision"
+          matInput
+          class="text-black"
+        />
+        <mat-error
+          *ngIf="
+            aboutUsForm.controls.vision.touched &&
+            aboutUsForm.controls.vision.invalid
+          "
+        >
+          <span *ngIf="aboutUsForm.controls.vision.errors.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Mission -->
+      <mat-form-field appearance="outline" class="col-md-12 mt-3">
+        <mat-label>Mission</mat-label>
+        <input
+          type="text"
+          formControlName="mission"
+          matInput
+          class="text-black"
+        />
+        <mat-error
+          *ngIf="
+            aboutUsForm.controls.mission.touched &&
+            aboutUsForm.controls.mission.invalid
+          "
+        >
+          <span *ngIf="aboutUsForm.controls.mission.errors.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field appearance="outline" class="col-md-12 mt-3">
+        <mat-label>E-Mail</mat-label>
+        <input
+          type="text"
+          formControlName="email"
+          matInput
+          class="text-black"
+        />
+        <mat-error
+          *ngIf="
+            aboutUsForm.controls.email.touched &&
+            aboutUsForm.controls.email.invalid
+          "
+        >
+          <span *ngIf="aboutUsForm.controls.email.errors.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Phone Number -->
+      <mat-form-field appearance="outline" class="col-md-12 mt-3">
+        <mat-label>Phone Number</mat-label>
+        <input
+          type="number"
+          formControlName="phoneNumber"
+          matInput
+          class="text-black"
+        />
+        <mat-error
+          *ngIf="
+            aboutUsForm.controls.phoneNumber.touched &&
+            aboutUsForm.controls.phoneNumber.invalid
+          "
+        >
+          <span *ngIf="aboutUsForm.controls.phoneNumber.errors.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Desc -->
+      <mat-form-field appearance="outline" class="col-md-12 mt-4">
+        <mat-label>Description</mat-label>
+        <textarea
+          formControlName="description"
+          matInput
+          rows="11"
+          class="text-black"
+        ></textarea>
+        <mat-error
+          *ngIf="
+            aboutUsForm.controls.description.touched &&
+            aboutUsForm.controls.description.invalid
+          "
+        >
+          <span *ngIf="aboutUsForm.controls.description.errors?.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Image -->
+      <div class="col-md-12 mt-2 mb-3">
+        <div class="mb-2">
+          <mat-label>Image</mat-label>
+        </div>
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+          class="form-control"
+        />
+        <mat-error *ngIf="fileError">
+          {{ fileError }}
+        </mat-error>
+      </div>
+      <div *ngIf="previewImage" class="mt-3">
+        <img
+          [src]="previewImage"
+          alt="Preview"
+          class="img-fluid"
+          style="max-height: 200px"
+        />
+      </div>
+    </div>
+  </form>
+
+  <mat-dialog-actions align="end">
+    <button mat-flat-button color="accent" mat-dialog-close>Cancel</button>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="!(aboutUsForm.valid && aboutUsForm.dirty)"
+      (click)="handleBannerSubmit()"
+    >
+      {{ action }} Data
+    </button>
+  </mat-dialog-actions>
+</div>

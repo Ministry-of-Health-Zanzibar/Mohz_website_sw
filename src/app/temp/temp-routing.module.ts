@@ -210,6 +210,11 @@ const routes: Routes = [
         loadComponent: () =>
           import('./components/news/read-more-news/read-more-news.component').then ((c) => c.ReadMoreNewsComponent)
       },
+      {
+        path: 'news',
+        loadComponent: () =>
+          import('./components/news/news.component').then((c)  => c.NewsComponent)
+      },
     ]
   },
  
