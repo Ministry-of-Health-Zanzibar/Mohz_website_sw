@@ -1,57 +1,104 @@
-<div class="container my-5">
-    <h2 class="text-center fw-bold mb-4 ">Blog za Wizara</h2>
+<!-- Services Start -->
+<div class="container-fluid service mt-2">
+  <div class="container">
+    <div
+      class="text-center mx-auto pb-5 wow fadeInUp"
+      data-wow-delay="0.2s"
+      style="max-width: 800px"
+    >
+      <h1 class="text-primary text-capitalize">get lates news & events</h1>
+      <p class="mb-0">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur
+        adipisci facilis cupiditate recusandae aperiam temporibus corporis
+        itaque quis facere, numquam, ad culpa deserunt sint dolorem autem
+        obcaecati, ipsam mollitia hic.
+      </p>
+    </div>
+  
     <div class="row">
-      <!-- Blog Card 1 -->
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
-          <img
-            src="../../../../../assets/img/mh.waziri1.jpeg"
-            class="card-img-top"
-            alt="Blog Image"
-          />
-          <div class="card-body">
-            <h5 class="card-title ">Makala ya Afya</h5>
-            <p class="card-text text-muted">
-              Taarifa za afya bora na namna ya kujikinga na magonjwa mbalimbali.
-            </p>
-            <a href="#" class="btn btn-primary">Soma Zaidi</a>
+      <span *ngIf="isLoading" class="loading-spinner">
+        <span>Loading...</span>
+      </span>
+      <div
+        *ngIf="!isLoading"
+        class="col-md-6 wow fadeInLeft"
+        data-wow-delay="0.2s"
+      >
+        <div class="row">
+          <h5 class="fw-bold text-primary text-uppercase">Lates News</h5>
+          <div class="col-md-12" *ngFor="let news of newses">
+            <div class="row mb-4 mt-2">
+              <div class="col-md-6">
+                <div class="service-img">
+                  <img
+                    [src]="news?.image_urls[0]"
+                    class="img-fluid rounded-top rounded-bottom w-100 h-100"
+                    alt="Image"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <h5 class="text-uppercase text-primary fw-bold">
+                  {{ truncateTitle(news?.news_title, 5) }}
+                </h5>
+                <div>
+                  <i class="fa-solid fa-calendar-days"></i>
+                  Posted On: {{ news?.created_at | date : "mediumDate" }}
+                </div>
+                <div class="">
+                  {{ truncateNewsDescription(news?.news_descriptions, 20) }}<span (click)="findNewsById(news?.id)" class="text-primary readMore">{{ readMore }}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+       
       </div>
-      <!-- Blog Card 2 -->
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
-          <img
-            src="../../../../../assets/img/katibu.jpeg"
-            class="card-img-top"
-            alt="Blog Image"
-          />
-          <div class="card-body">
-            <h5 class="card-title ">Mipango ya Chanjo</h5>
-            <p class="card-text text-muted">
-              Fahamu kuhusu ratiba za chanjo na huduma zinazotolewa na wizara.
-            </p>
-            <a href="#" class="btn btn-primary">Soma Zaidi</a>
+
+      <!-- EVENTS -->
+      <span *ngIf="isEventLoading" class="loading-spinner">
+        <span>Loading...</span>
+      </span>
+      <div
+        *ngIf="!isEventLoading"
+        class="col-md-6 wow fadeInRight"
+        data-wow-delay="0.2s"
+      >
+        <div class="row">
+          <h5 class="fw-bold text-primary text-uppercase">Lates Events</h5>
+          <!-- <hr /> -->
+          <div class="col-md-12" *ngFor="let event of events">
+            <div class="row mb-4 mt-2" >
+              <div class="col-md-6">
+                <div class="service-img">
+                  <img
+                    [src]="
+                      event?.post_filepath ||
+                      '../../../../assets/img/no-image.jpg'
+                    "
+                    class="img-fluid rounded-top rounded-bottom w-100 h-100"
+                    alt="Image"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <h5 class="text-uppercase text-primary fw-bold">
+                  {{ truncateTitle(event?.post_title, 5) }}
+                </h5>
+                <div>
+                  <i class="fa-solid fa-calendar-days"></i>
+                  Posted On: {{ event?.created_at | date : "mediumDate" }}
+                </div>
+                <div class="">
+                  {{ truncateEventDescription(event?.post_description, 20) }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- Blog Card 3 -->
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
-          <img
-            src="../../../../../assets/img/mh.waziri1.jpeg"
-            class="card-img-top"
-            alt="Blog Image"
-          />
-          <div class="card-body">
-            <h5 class="card-title ">Huduma za Matibabu</h5>
-            <p class="card-text text-muted">
-              Jifunze kuhusu huduma za matibabu zinazopatikana katika hospitali.
-            </p>
-            <a href="#" class="btn btn-primary">Soma Zaidi</a>
-          </div>
-        </div>
+        
       </div>
     </div>
   </div>
-  
+</div>
+

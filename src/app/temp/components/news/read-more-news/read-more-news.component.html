@@ -1,8 +1,24 @@
-<p>read-more-news works!</p>
-<h1>New Title</h1>
-<p>{{ news?.news_title }}</p>
 
-<button (click)="backToHomePage()" mat-raised-button color="warn">
-  <mat-icon>arrow_back_ios</mat-icon>
-  Back
-</button>
+
+<div class="container-sm justify-content-center mt-4">
+  <div class="card w-75 mx-auto p-3 shadow">
+    <div class="card-body">
+      <!-- Bootstrap Carousel -->
+      <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div *ngFor="let imageUrl of news?.image_urls; let i = index" class="carousel-item" [ngClass]="{'active': i === 0}">
+            <img class="d-block w-100 rounded" [src]="imageUrl" alt="News Image">
+          </div>
+        </div>
+      </div>
+
+      <!-- News Details -->
+      <div class="mt-4">
+        <h3 class="fw-bold">{{ news?.news_title }}</h3>
+      <p class="text-secondary">{{ news?.news_descriptions }}</p>
+      <p class="text-muted"> <span class="fw-bold">Posted date:</span> {{ news?.created_at | date:'medium' }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
