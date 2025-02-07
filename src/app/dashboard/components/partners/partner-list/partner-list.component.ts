@@ -12,61 +12,67 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSort } from '@angular/material/sort';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { BannerService } from '../../../../services/banners/banner.service';
 import { ToastService } from '../../../../services/toast/toast.service';
-import { PostTypeService } from '../../../../services/types/type.service';
-import { TypeFormComponent } from '../type-form/type-form.component';
+import { BannerFormComponent } from '../../banners/banner-form/banner-form.component';
+import { DisplayBennerImageComponent } from '../../banners/display-benner-image/display-benner-image.component';
+import { PartnerService } from '../../../../services/partners/partner.service';
+import { PartnerFormComponent } from '../partner-form/partner-form.component';
 
 @Component({
-  selector: 'app-type-list',
+  selector: 'app-partner-list',
   standalone: true,
   imports: [
     CommonModule,
-    MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
+    MatIconModule,
     MatTooltipModule,
     MatSlideToggleModule,
     FormsModule,
     MatButtonModule,
-    MatIconModule,
-    MatInputModule,
+    MatButtonModule,
   ],
-  templateUrl: './type-list.component.html',
-  styleUrl: './type-list.component.css',
+  templateUrl: './partner-list.component.html',
+  styleUrl: './partner-list.component.css',
 })
-export class TypeListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class PartnerListComponent implements OnInit, OnDestroy, AfterViewInit {
   public readonly onDestroy = new Subject<void>();
   public isLoading: boolean = false;
   public refreshing!: boolean;
+  public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private typeService: PostTypeService,
-    private toastService: ToastService,
+    private partnerService: PartnerService,
     private dialog: MatDialog,
-    private router: Router,
-    private cdr: ChangeDetectorRef
+    private toastService: ToastService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   public displayedColumns: string[] = [
     'id',
-    'typeName',
+    'partnerName',
+    'partnerEmail',
+    'partnerPhone',
+    'partnerWebsite',
+    'partnerDescription',
+    'partnerLogo',
     'action',
   ];
 
-  // public dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
   ngAfterViewInit(): void {
+    // console.log('PAGINATOR: ', this.paginator);
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
     }
@@ -77,24 +83,23 @@ export class TypeListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.getAllTypes();
+    this.getAllPartners();
   }
 
   onRefresh() {
-    this.getAllTypes();
+    this.getAllPartners();
   }
 
-  public getAllTypes(): void {
+  public getAllPartners(): void {
     this.refreshing = true;
-    this.typeService
-      .getAllPostTypes()
+    this.partnerService
+      .getAllPartners()
       .pipe(takeUntil(this.onDestroy))
       .subscribe(
         (response: any) => {
           if (response) {
-            // console.log(response.data);
+            // console.log(response);
             this.dataSource = new MatTableDataSource(response.data);
-            // this.dataSource.data = response;
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
             this.refreshing = false;
@@ -108,6 +113,14 @@ export class TypeListComponent implements OnInit, OnDestroy, AfterViewInit {
           this.toastService.toastError(errorResponse.error.message);
         }
       );
+  }
+
+  // Kupunguza ukubwa wa text
+  public truncateDescription(description: string, words: number): string {
+    if (!description) return '';
+    const wordArray = description.split(' ');
+    if (wordArray.length <= words) return description;
+    return wordArray.slice(0, words).join(' ') + '...';
   }
 
   public applyFilter(event: Event) {
@@ -124,54 +137,78 @@ export class TypeListComponent implements OnInit, OnDestroy, AfterViewInit {
     config.data = {
       action: 'CREATE NEW',
     };
-    config.width = '600px';
 
-    const dialogRef = this.dialog.open(TypeFormComponent, config);
+    config.width = '800px';
+    config.height = '650px';
+
+    const dialogRef = this.dialog.open(PartnerFormComponent, config);
     this.router.events.subscribe(() => {
       dialogRef.close();
     });
 
-    const sub =
-      dialogRef.componentInstance.onAddTypeEventEmitter.subscribe(
-        () => {
-          this.getAllTypes();
-        }
-      );
+    const sub = dialogRef.componentInstance.onAddPartnerEventEmitter.subscribe(
+      () => {
+        this.getAllPartners();
+      }
+    );
   }
 
   // Open Edit Dialog
   public handleOpenEditDialogForm(data: any): void {
-    console.log(data);
+    // console.log(data);
     const config = new MatDialogConfig();
     config.data = {
       action: 'EDIT',
       data: data,
     };
-    config.width = '600px';
+    config.width = '800px';
+    config.height = '650px';
 
-    const dialogRef = this.dialog.open(TypeFormComponent, config);
+    const dialogRef = this.dialog.open(PartnerFormComponent, config);
+    this.router.events.subscribe(() => {
+      dialogRef.close();
+    });
+
+    const sub = dialogRef.componentInstance.onEditPartnerEventEmitter.subscribe(
+      () => {
+        this.getAllPartners();
+      }
+    );
+  }
+
+  // Open Display Dialog
+  public handleOpenDisplayDialogImage(data: any): void {
+    const config = new MatDialogConfig();
+    config.data = {
+      data: data,
+    };
+    config.width = '800px';
+    config.height = '600px';
+
+    const dialogRef = this.dialog.open(DisplayBennerImageComponent, config);
     this.router.events.subscribe(() => {
       dialogRef.close();
     });
 
     const sub =
-      dialogRef.componentInstance.onEditTypeEventEmitter.subscribe(
+      dialogRef.componentInstance.onDisplayBannerImageEventEmitter.subscribe(
         () => {
-          this.getAllTypes();
+          this.getAllPartners();
         }
       );
   }
 
   // Delete
-  public deleteType(data: any): void {
-    console.log(data.id);
-    this.typeService.deletePostType(data.id).subscribe(
+  public deletePartner(data: any): void {
+    console.log(data);
+    this.partnerService.deletePartner(data.id).subscribe(
       (response: any) => {
         if (response.statusCode === 200) {
-          this.getAllTypes();
+          this.getAllPartners();
           this.toastService.toastSuccess(response.message);
         } else {
           this.toastService.toastError(response.message);
+          // this.toastService.toastError('An error occured while processing');
         }
       },
       (errorResponse: HttpErrorResponse) => {
@@ -182,6 +219,10 @@ export class TypeListComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
+  // View
+  public navigateToPartnerDetails(data: any): void {
+    this.router.navigate(['/dashboard/partner-details', data.id]);
+  }
 
   ngOnDestroy(): void {
     this.onDestroy.next();

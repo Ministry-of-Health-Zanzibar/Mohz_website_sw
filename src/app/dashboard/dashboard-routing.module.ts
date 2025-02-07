@@ -296,6 +296,30 @@ const routes: Routes = [
             './components/our-services/view-service-details/view-service-details.component'
           ).then((c) => c.ViewServiceDetailsComponent),
       },
+      {
+        path: 'partner-list',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/partners/partner-list/partner-list.component'
+          ).then((c) => c.PartnerListComponent),
+      },
+      {
+        path: 'partner-form',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/partners/partner-form/partner-form.component'
+          ).then((c) => c.PartnerFormComponent),
+      },
+      {
+        path: 'partner-details/:id',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/partners/view-partner-datails/view-partner-datails.component'
+          ).then((c) => c.ViewPartnerDatailsComponent),
+      },
     ],
   },
 ];

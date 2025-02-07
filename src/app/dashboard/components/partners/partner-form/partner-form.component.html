@@ -1,0 +1,153 @@
+<div class="container-fluid">
+  <!-- <h5 class="font-semibold mt-4">{{ dialogData.action }} News</h5> -->
+  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'CREATE NEW'">
+    Create Partner
+  </h5>
+  <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'EDIT'">
+    Update Partner
+  </h5>
+  <form [formGroup]="partnerForm">
+    <div class="row">
+      <!-- P Name -->
+      <mat-form-field appearance="outline" class="col-md-12 mt-3">
+        <mat-label>Partner Name</mat-label>
+        <input
+          type="text"
+          formControlName="partnerName"
+          matInput
+          class="text-black"
+        />
+        <mat-error
+          *ngIf="
+            partnerForm.controls.partnerName.touched &&
+            partnerForm.controls.partnerName.invalid
+          "
+        >
+          <span *ngIf="partnerForm.controls.partnerName.errors.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <!-- P Email -->
+      <mat-form-field appearance="outline" class="col-md-12 mt-4">
+        <mat-label>Partner Email</mat-label>
+        <input
+          formControlName="partnerEmail"
+          matInput
+          rows="11"
+          class="text-black"
+        />
+        <mat-error
+          *ngIf="
+            partnerForm.controls.partnerEmail.touched &&
+            partnerForm.controls.partnerEmail.invalid
+          "
+        >
+          <span *ngIf="partnerForm.controls.partnerEmail.errors?.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <!-- P Phone -->
+      <mat-form-field appearance="outline" class="col-md-12 mt-4">
+        <mat-label>Partner Phone Number</mat-label>
+        <input
+          formControlName="partnerPhone"
+          matInput
+          rows="11"
+          class="text-black"
+        />
+        <mat-error
+          *ngIf="
+            partnerForm.controls.partnerPhone.touched &&
+            partnerForm.controls.partnerPhone.invalid
+          "
+        >
+          <span *ngIf="partnerForm.controls.partnerPhone.errors?.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <!-- P Website -->
+      <mat-form-field appearance="outline" class="col-md-12 mt-4">
+        <mat-label>Partner Website</mat-label>
+        <input
+          formControlName="partnerWebsite"
+          matInput
+          rows="11"
+          class="text-black"
+        />
+        <mat-error
+          *ngIf="
+            partnerForm.controls.partnerWebsite.touched &&
+            partnerForm.controls.partnerWebsite.invalid
+          "
+        >
+          <span *ngIf="partnerForm.controls.partnerWebsite.errors?.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <!-- P Desc -->
+      <mat-form-field appearance="outline" class="col-md-12 mt-4">
+        <mat-label>Partner Description</mat-label>
+        <textarea
+          formControlName="partnerDescription"
+          matInput
+          rows="11"
+          class="text-black"
+        ></textarea>
+        <mat-error
+          *ngIf="
+            partnerForm.controls.partnerDescription.touched &&
+            partnerForm.controls.partnerDescription.invalid
+          "
+        >
+          <span *ngIf="partnerForm.controls.partnerDescription.errors?.required"
+            >This field is mandatory</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <!-- P Logo -->
+      <div class="col-md-12 mt-2 mb-3">
+        <div class="mb-2">
+          <mat-label>Partner Logo</mat-label>
+        </div>
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+          class="form-control"
+        />
+        <mat-error *ngIf="fileError">
+          {{ fileError }}
+        </mat-error>
+      </div>
+      <div *ngIf="previewImage" class="mt-3">
+        <img
+          [src]="previewImage"
+          alt="Preview"
+          class="img-fluid"
+          style="max-height: 200px"
+        />
+      </div>
+    </div>
+  </form>
+
+  <mat-dialog-actions align="end">
+    <button mat-flat-button color="accent" mat-dialog-close>Cancel</button>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="!(partnerForm.valid && partnerForm.dirty)"
+      (click)="handlePartnerSubmit()"
+    >
+      {{ action }} Data
+    </button>
+  </mat-dialog-actions>
+</div>
