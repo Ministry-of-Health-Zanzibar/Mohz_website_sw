@@ -4,11 +4,13 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-read-more-news',
   standalone: true,
   imports: [
+    CommonModule,
     RouterModule,
     MatButtonModule, MatIconModule],
   templateUrl: './read-more-news.component.html',

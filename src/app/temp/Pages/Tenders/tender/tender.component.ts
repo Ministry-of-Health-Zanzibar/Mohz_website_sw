@@ -1,39 +1,41 @@
+
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../../../services/posts/post.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { PostService } from '../../../../services/posts/post.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-tender',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule
-  ],
+  imports: [CommonModule,
+    MatButtonModule
+  ], 
   templateUrl: './tender.component.html',
-  styleUrl: './tender.component.css'
+  styleUrls: ['./tender.component.css']
 })
 export class TenderComponent implements OnInit {
-  tenderList: any;
-  constructor(private tenderService:PostService){}
+  tenders: any[] = [];
+
+  constructor(private tenderService: PostService) {}
+
   ngOnInit(): void {
     this.getAllTenders();
-   
   }
-
-
-  public getAllTenders(){
-    this.tenderService.getTenderPosts().subscribe(response => {
-      console.log('API Response:', response); 
-      if (response && response.data) {
-        this.tenderList = response.data; 
-        console.log('Updated tenderList:', this.tenderList); 
+  getAllTenders() {
+    this.tenderService.getTenderPosts().subscribe(
+      (response) => {
+        console.log("API Response:", response); 
+        this.tenders = response.data || []; 
+      },
+      (error) => {
+        console.error('Error fetching tenders:', error);
       }
-    },
-    error => {
-      console.error('Error fetching projects:', error);
-    }
-  );
+    );
   }
-
+  
+  
+  
+  previewPost(filepath: string) {
+    window.open(filepath, '_blank');
+  }
 }

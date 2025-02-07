@@ -1,17 +1,28 @@
-<div class="container d-flex flex-column justify-content-center align-items-center mt-4 text-center mb-5">
-  <h1 class="mb-4">Projects</h1>
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header text-center fw-bold">
+      Projects
+    </div>
+    <div class="card-body">
+      
+        
+          <div class="section-header">
+            <h3>New projects</h3>
+          </div>
+          <ol>
+            <li *ngFor="let project of projects" class="mt-4">
+              <span class="new-icon text-danger fw-bold me-2">🌟 NEW</span>
+              {{ project.post_title }}
+              <span  (click)="previewPost(project.post_filepath)" class="badge bg-primary mx-4" style="cursor: pointer;;">Preview</span>
+              
+            </li>
+          </ol>
+        </div>
   
-  <div *ngIf="projectList.length === 0" class="alert alert-info w-50">
-    Loading projects...
   </div>
-
-  <!-- Ordered List kwa project ikiwa data ipo -->
-  <ol class="list-group list-group-numbered w-50" *ngIf="projectList.length > 0">
-    <li *ngFor="let project of projectList" class="list-group-item d-flex justify-content-between align-items-center">
-      <span class="fw-bold text-primary">🌟 {{ project?.post_title }}</span>
-      <a [href]="project?.post_filepath" target="_blank" class="btn btn-sm btn-outline-primary">
-        View Document
-      </a>
-    </li>
-  </ol>
+  
+  
 </div>
+
+
+

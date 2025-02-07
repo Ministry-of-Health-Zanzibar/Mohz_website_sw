@@ -13,11 +13,11 @@ import { Router, RouterModule } from '@angular/router';
   selector: 'app-news',
   standalone: true,
   imports: [
-    CommonModule,
-     MatButtonModule,
-      MatIconModule,
-      RouterModule
-    ],
+    CommonModule, 
+    MatButtonModule, 
+    MatIconModule,
+    RouterModule
+  ],
   templateUrl: './news.component.html',
   styleUrl: './news.component.css',
 })
