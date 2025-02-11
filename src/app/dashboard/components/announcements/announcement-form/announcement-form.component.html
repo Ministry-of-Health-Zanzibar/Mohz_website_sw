@@ -53,7 +53,7 @@
             <mat-label>Image</mat-label>
         </div>
         <input type="file" (change)="onFileSelected($event)"
-        accept="*" class="form-control"/>
+        accept="*" class="form-control" multiple/>
         <mat-error *ngIf="fileError">
             {{ fileError }}
           </mat-error>

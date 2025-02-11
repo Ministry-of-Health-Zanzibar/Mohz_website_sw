@@ -1,1 +1,46 @@
-<p>department-program-form works!</p>
+<div class="container-fluid">
+    <!-- <h5 class="font-semibold mt-4">{{ dialogData.action }} Announcement</h5> -->
+    <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'CREATE NEW'">
+      Create Department Program
+    </h5>
+    <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'EDIT'">Update Department Program</h5>
+    <form [formGroup]="depProgramForm">
+      <div class="row">
+        <!-- Title -->
+        <mat-form-field appearance="outline" class="col-md-12 mt-3">
+          <mat-label>Department Name</mat-label>
+          <input
+            type="text"
+            formControlName="dpName"
+            matInput
+            class="text-black"
+          />
+          <mat-error
+            *ngIf="
+              depProgramForm.controls.dpName.touched &&
+              depProgramForm.controls.dpName.invalid
+            "
+          >
+            <span
+              *ngIf="depProgramForm.controls.dpName.errors.required"
+              >This field is mandatory</span
+            >
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  
+    <mat-dialog-actions align="end">
+      <button mat-flat-button color="accent" mat-dialog-close>Cancel</button>
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="!(depProgramForm.valid && depProgramForm.dirty)"
+        (click)="handleOurServiceSubmit()"
+      >
+        {{ action }} Data
+      </button>
+    </mat-dialog-actions>
+  </div>
+  
+  

@@ -34,4 +34,8 @@ export class PostTypeService {
   public deletePostType(id: number): Observable<any> {
     return this.httpClient.delete<any>(`${this.apiUrl}/api/types/delete/${id}`);
   }
+
+  public restoreDeletedPostType(data: any, id: number): Observable<any> {
+    return this.httpClient.patch<any>(`${this.apiUrl}/api/types/restore/${id}`, data);
+  }
 }

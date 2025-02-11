@@ -24,7 +24,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { PostTypeService } from '../../../../services/types/type.service';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { TenderService } from '../../../../services/tenders/tender.service';
 
 @Component({
@@ -38,7 +38,7 @@ import { TenderService } from '../../../../services/tenders/tender.service';
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   templateUrl: './post-form.component.html',
   styleUrl: './post-form.component.css',
@@ -54,6 +54,7 @@ export class PostFormComponent implements OnInit {
   public fileError: string | null = null;
   postTypes: any;
   postTypeId: any;
+  previewImages: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -67,9 +68,9 @@ export class PostFormComponent implements OnInit {
     this.postForm = this.formBuilder.group({
       postTitle: ['', Validators.required],
       postDescription: ['', Validators.required],
-      postFilepath: ['', ],
+      postFilepath: [''],
       postTypeId: ['', Validators.required],
-      typeName: [''], 
+      typeName: [''],
     });
   }
 
@@ -84,18 +85,20 @@ export class PostFormComponent implements OnInit {
       postDescription: this.dialogData.data.post_description,
       postFilepath: this.dialogData.data.post_filepath,
       postTypeId: this.dialogData.data.type_id,
-      typeName: this.dialogData.data.type_name, 
+      typeName: this.dialogData.data.type_name,
     });
 
-     // Listen for changes in postTypeId and update typeName dynamically
-     this.postForm.get('postTypeId')?.valueChanges.subscribe((selectedId: any) => {
-      const selectedType = this.postTypes.find(
-        (type: { id: any; }) => type.id === selectedId
-      );
-      if (selectedType) {
-        this.postForm.patchValue({ typeName: selectedType.type_name });
-      }
-    });
+    // Listen for changes in postTypeId and update typeName dynamically
+    this.postForm
+      .get('postTypeId')
+      ?.valueChanges.subscribe((selectedId: any) => {
+        const selectedType = this.postTypes.find(
+          (type: { id: any }) => type.id === selectedId
+        );
+        if (selectedType) {
+          this.postForm.patchValue({ typeName: selectedType.type_name });
+        }
+      });
 
     if (this.dialogData.action === 'EDIT') {
       this.dialogAction = 'EDIT';
@@ -105,7 +108,7 @@ export class PostFormComponent implements OnInit {
         postDescription: this.dialogData.data.post_description,
         postFilepath: this.dialogData.data.post_filepath,
         postTypeId: this.dialogData.data.type_id,
-        typeName: this.dialogData.data.type_name, 
+        typeName: this.dialogData.data.type_name,
       });
     }
   }
@@ -144,14 +147,18 @@ export class PostFormComponent implements OnInit {
         'post_description',
         this.postForm.get('postDescription')?.value
       );
-      formData.append(
-        'post_filepath',
-        this.postForm.get('postFilepath')?.value
-      );
-      formData.append(
-        'type_id',
-        this.postForm.get('postTypeId')?.value
-      );
+      // formData.append(
+      //   'post_filepath',
+      //   this.postForm.get('postFilepath')?.value
+      // );
+      formData.append('type_id', this.postForm.get('postTypeId')?.value);
+
+      const files = this.postForm.get('postFilepath')?.value;
+      if (files && files.length > 0) {
+        for (let i = 0; i < files.length; i++) {
+          formData.append('post_filepath[]', files[i]); // Append as an array
+        }
+      }
 
       this.postService.createPost(formData).subscribe(
         (response: any) => {
@@ -188,10 +195,7 @@ export class PostFormComponent implements OnInit {
         'post_filepath',
         this.postForm.get('postFilepath')?.value
       );
-      formData.append(
-        'type_id',
-        this.postForm.get('postTypeId')?.value
-      );
+      formData.append('type_id', this.postForm.get('postTypeId')?.value);
 
       this.postService.updatePost(formData).subscribe(
         (response: any) => {
@@ -209,6 +213,27 @@ export class PostFormComponent implements OnInit {
           }
         }
       );
+    }
+  }
+
+  public onImageSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input?.files?.length) {
+      const files = Array.from(input.files);
+  
+
+      this.fileError = null;
+      this.postForm.get('postFilepath')?.setValue(files); // Store files array
+  
+      // Generate previews
+      this.previewImages = [];
+      files.forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.previewImages.push(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      });
     }
   }
 
