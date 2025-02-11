@@ -25,6 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { PostTypeService } from '../../../../services/types/type.service';
 import {MatSelectModule} from '@angular/material/select';
+import { TenderService } from '../../../../services/tenders/tender.service';
 
 @Component({
   selector: 'app-post-form',
@@ -60,7 +61,8 @@ export class PostFormComponent implements OnInit {
     private postService: PostService,
     private typeService: PostTypeService,
     private dialogRef: MatDialogRef<PostFormComponent>,
-    private toastService: ToastService
+    private toastService: ToastService,
+
   ) {
     this.postForm = this.formBuilder.group({
       postTitle: ['', Validators.required],
@@ -154,6 +156,7 @@ export class PostFormComponent implements OnInit {
       this.postService.createPost(formData).subscribe(
         (response: any) => {
           // console.log(response);
+         
           this.dialogRef.close();
           this.onAddPostEventEmitter.emit();
           if (response.statusCode === 201) {

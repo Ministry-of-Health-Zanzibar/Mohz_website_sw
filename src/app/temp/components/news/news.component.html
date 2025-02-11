@@ -14,36 +14,7 @@
         obcaecati, ipsam mollitia hic.
       </p>
     </div>
-    <!-- <div class="row g-4">
-      <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-        <div class="service-item">
-          <div class="service-img">
-            <img
-              src="../assets/img/service-1.jpg"
-              class="img-fluid rounded-top w-100"
-              alt="Image"
-            />
-          </div>
-          <div class="rounded-bottom p-4">
-            <a href="our_servirce.html" class="h4 d-inline-block mb-4">
-              Training and Seminar</a
-            >
-            <p class="mb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur,
-              sint? Excepturi facilis neque nesciunt similique officiis
-              veritatis,
-            </p>
-            <a
-              class="btn btn-primary rounded-pill py-2 px-4"
-              href="our_servirce.html"
-              >Learn More</a
-            >
-          </div>
-        </div>
-      </div>
-    </div> -->
-    
-    
+  
     <div class="row">
       <span *ngIf="isLoading" class="loading-spinner">
         <span>Loading...</span>
@@ -55,9 +26,7 @@
       >
         <div class="row">
           <h5 class="fw-bold text-primary text-uppercase">Lates News</h5>
-          <span *ngIf="newses.length === 0" class="alert alert-dark">No data available.</span>
-          <div *ngIf="newses.length !== 0">
-          <div class="col-md-12"  *ngFor="let news of newses; let i = index">
+          <div class="col-md-12" *ngFor="let news of newses; let i = index">
             <div class="row mb-4 mt-2" *ngIf="i < 5">
               <div class="col-md-6">
                 <div class="service-img">
@@ -70,6 +39,7 @@
               </div>
               <div class="col-md-6">
                 <h5 class="text-uppercase text-primary fw-bold">
+                  <img class="img-fluid mx-auto" src="https://www.kilimo.go.tz/site/images/gif1.gif" width="70" height="50">
                   {{ truncateTitle(news?.news_title, 5) }}
                 </h5>
                 <div>
@@ -77,7 +47,7 @@
                   Posted On: {{ news?.created_at | date : "mediumDate" }}
                 </div>
                 <div class="">
-                  {{ truncateNewsDescription(news?.news_descriptions, 20) }}<span (click)="findNewsById(news?.id)" class="text-primary readMore">{{ readMore }}</span>
+                  {{ truncateNewsDescription(news?.news_descriptions, 20) }}<span (click)="findNewsById(news.id)" class="text-primary readMore">{{ readMore }}</span>
                 </div>
               </div>
             </div>
@@ -99,7 +69,8 @@
       >
         <div class="row">
           <h5 class="fw-bold text-primary text-uppercase">Lates Events</h5>
-          <div class="col-md-12" *ngFor="let event of events; let i = index;">
+          
+          <div class="col-md-12" *ngFor="let event of events; let i = index">
             <div class="row mb-4 mt-2" *ngIf="i < 5">
               <div class="col-md-6">
                 <div class="service-img">
@@ -122,11 +93,23 @@
                   Posted On: {{ event?.created_at | date : "mediumDate" }}
                 </div>
                 <div class="">
-                  {{ truncateEventDescription(event?.post_description, 20) }}
+                  {{ truncateEventDescription(event?.post_description, 20)}} <span (click)="findEventById(event?.id)" class="text-primary readMore">{{ readMore }}</span>
+                </div> 
+                <!-- <button (click)="fetchPost(event?.id)" mat-button color="primary">
+                  Pata Post
+                </button> -->
+                
+                <div *ngIf="postData">
+                  <h3>Post Data:</h3>
+                  <pre>{{ postData | json }}</pre>
                 </div>
+                
+
               </div>
             </div>
           </div>
+
+        
         </div>
         <button mat-raised-button color="primary" routerLink="/temp/main/blog">
           View More <mat-icon>arrow_forward</mat-icon>
@@ -135,4 +118,4 @@
     </div>
   </div>
 </div>
-
+<!-- Services End -->

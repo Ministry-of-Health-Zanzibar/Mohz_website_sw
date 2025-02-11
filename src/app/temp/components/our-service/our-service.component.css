@@ -1,0 +1,50 @@
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    position: relative;
+    text-transform: uppercase;
+  }
+  
+  .heading::before,
+  .heading::after {
+    content: "";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 20px; /* Urefu wa block yenye mistari mitatu */
+    width: 50px;  /* Upana wa mistari */
+  }
+  
+  .heading::before {
+    background: linear-gradient(
+      to bottom,
+      white 5px,   /* Mstari wa kwanza */
+      transparent 5px, 
+      transparent 8px,
+      white 8px,   /* Mstari wa pili mkubwa */
+      transparent 12px, 
+      transparent 15px,
+      white 15px   /* Mstari wa mwisho */
+    );
+    margin-right: 15px;
+  }
+  
+  .heading::after {
+    background: linear-gradient(
+      to bottom,
+      white 5px,   /* Mstari wa kwanza */
+      transparent 5px, 
+      transparent 8px,
+      white 8px,   /* Mstari wa pili mkubwa */
+      transparent 12px, 
+      transparent 15px,
+      white 15px   /* Mstari wa mwisho */
+    );
+    margin-left: 15px;
+  }
+  

@@ -1,55 +1,47 @@
-<!-- Team Start -->
-<div class="container-fluid team">
-  <div class="container pb-5">
-    <div
-      class="text-center mx-auto pb-5 wow fadeInUp"
-      data-wow-delay="0.2s"
-      style="max-width: 800px"
-    >
-      <h1 class="text-primary">Our Team</h1>
-      <h1 class="display-5 mb-4">Meet Our Advisers</h1>
-      <p class="mb-0">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur
-        adipisci facilis cupiditate recusandae aperiam temporibus corporis
-        itaque quis facere, numquam, ad culpa deserunt sint dolorem autem
-        obcaecati, ipsam mollitia hic.
-      </p>
-    </div>
-
-    <span *ngIf="isLoading" class="loading-spinner">
-      <span>Loading...</span>
-    </span>
-    <div *ngIf="!isLoading" class="row g-4">
-      <div
-        *ngFor="let team of teams"
-        class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp"
-        data-wow-delay="0.2s"
-      >
-        <div class="team-item">
-          <div class="team-img">
-            <img [src]="team?.team_photo" class="img-fluid" alt="" />
-          </div>
-          <div class="team-title">
-            <h4 class="mb-0">{{ team?.first_name }} {{ team?.last_name }}</h4>
-            <p class="mb-0">{{ team?.professional }}</p>
-          </div>
-          <div class="team-icon">
-            <a class="btn btn-primary btn-sm-square rounded-circle me-3" href=""
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-            <a class="btn btn-primary btn-sm-square rounded-circle me-3" href=""
-              ><i class="fab fa-twitter"></i
-            ></a>
-            <a class="btn btn-primary btn-sm-square rounded-circle me-3" href=""
-              ><i class="fab fa-linkedin-in"></i
-            ></a>
-            <a class="btn btn-primary btn-sm-square rounded-circle me-0" href=""
-              ><i class="fab fa-instagram"></i
-            ></a>
-          </div>
+<!-- <div class="container my-4 mt-5 custom-container">
+  <button mat-raised-button color="primary" routerLink="/temp/main/partners">All Partners</button>
+  <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+    <h1 class="text-primary">Our Partners</h1>
+  </div>
+  <marquee behavior="scroll" direction="left">
+    <div class="d-flex align-items-center">
+      <div *ngFor="let partner of partners" class="card mx-3" style="width: 18rem; overflow: hidden;">
+        <img [src]="partner?.partner_logo" class="card-img-top  mx-auto mt-3" alt="Logo" 
+          style="width: 100px; height: 100px; object-fit: cover;"> 
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ partner.partner_name }}</h5>
+          <p class="card-text">
+            <strong>Partner email:</strong> {{ partner.partner_email }} <br>
+            <strong>Website: {{ partner.partner_website }}</strong>
+          </p>
         </div>
       </div>
     </div>
+  </marquee>
+</div> -->
+
+<div class="container text-center  my-4 mt-5">
+  <div class="py-2">
+      <h1 class="text-primary fw-bold">
+          <span class="p-2 ">Ministry Partners</span>
+      </h1>
+  </div>
+
+  <!-- Background Image Section -->
+  <div class="position-relative" 
+     style="background-image: url('../../../../../assets/img/tretement.jpeg'); background-size: cover; background-position: center; height: 270px; border-radius: 10px;">
+    <!-- Marquee Section -->
+    <div class="position-absolute top-50 start-0 w-100 translate-middle-y">
+        <marquee behavior="scroll" direction="left" scrollamount="3">
+            <!-- Loop Through Partners -->
+            <img *ngFor="let partner of partners" 
+                 [src]="partner?.partner_logo" 
+                 class="rounded-circle mx-3" 
+                 style="width: 200px; height: 200px; border: 3px solid rgb(255, 255, 255); object-fit: contain; background-color: white; padding: 15px;">
+        </marquee>
+        <!-- <div style="display: grid; justify-content: end;">
+          <a routerLink=""><p class="text-white">more-details</p></a>
+        </div> -->
+    </div>
   </div>
 </div>
-<!-- Team End -->

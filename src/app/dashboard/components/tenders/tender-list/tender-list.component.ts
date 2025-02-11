@@ -23,6 +23,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { PostService } from '../../../../services/posts/post.service';
 import { ToastService } from '../../../../services/toast/toast.service';
 import { PostFormComponent } from '../../posts/post-form/post-form.component';
+import { TenderService } from '../../../../services/tenders/tender.service';
 
 @Component({
   selector: 'app-tender-list',
@@ -47,13 +48,15 @@ export class TenderListComponent implements OnInit, OnDestroy, AfterViewInit {
   public isLoading: boolean = false;
   public refreshing!: boolean;
   postTypes: any;
+ 
 
   constructor(
     private postService: PostService,
     private toastService: ToastService,
     private dialog: MatDialog,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private tenderService: TenderService
   ) {}
 
   public displayedColumns: string[] = [
@@ -82,6 +85,7 @@ export class TenderListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.getTenderPosts();
+    
   }
 
   onRefresh() {

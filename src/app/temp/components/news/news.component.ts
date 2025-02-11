@@ -3,21 +3,22 @@ import { NewsService } from '../../../services/news/news.service';
 import { ToastService } from '../../../services/toast/toast.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { EventService } from '../../../services/events/event.service';
 import { PostService } from '../../../services/posts/post.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 
+
+
 @Component({
   selector: 'app-news',
   standalone: true,
   imports: [
-    CommonModule, 
-    MatButtonModule, 
+    CommonModule,
+    MatButtonModule,
     MatIconModule,
     RouterModule
-  ],
+],
   templateUrl: './news.component.html',
   styleUrl: './news.component.css',
 })
@@ -27,12 +28,19 @@ export class NewsComponent implements OnInit {
   public events: any;
   public isEventLoading!: boolean;
   public readMore = 'Read More';
+  postData: any;
 
-  constructor(private newsService: NewsService, private eventService: PostService, private router: Router) {}
+  constructor(
+    private newsService: NewsService, 
+    private postService:PostService,
+    private router: Router, 
+   
+  ) {}
 
   ngOnInit(): void {
     this.getAllNeews();
     this.getEventPosts();
+    console.log("Event Data:", this.events);
   }
 
   public getAllNeews(): void {
@@ -81,11 +89,47 @@ export class NewsComponent implements OnInit {
       );
     }
 
+     // Get news by Id
+     public findEventById(id: any): void {
+      this.postService.findPostById(id).subscribe(
+        (response: any) => {
+          // id = 'page';
+          this.router.navigate(['/temp/main/read-events', id]);
+          // console.log('NEWS: ', response.data);
+        },
+        (errorResponse: HttpErrorResponse) => {
+          console.log(errorResponse.error.message);
+        }
+      );}
+
+      // fetchPost(id: any) {
+      //   this.postService.findPostById(id).subscribe(
+      //     data => {
+      //       this.postData = data;
+      //       console.log('Data:', data);
+      //     },
+      //     error => {
+      //       console.error('Error:', error);
+      //     }
+      //   );
+      // }
+    
+
+    
+
+   
+
+    
+
+    
+    
+
+ 
 
     // Fetch events
     public getEventPosts(): void {
       this.isEventLoading = true;
-      this.eventService.getEventPosts().subscribe(
+      this.postService.getEventPosts().subscribe(
         (response: any) => {
           this.events = response.data;
           // console.log('EVENTS: ', response.data);

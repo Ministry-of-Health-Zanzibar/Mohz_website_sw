@@ -1,0 +1,30 @@
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden; 
+    text-align: center;
+ 
+  }
+  
+  .card-img-top {
+    border-radius: 50%; 
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover; 
+    margin: 10px auto; 
+  }
+  
+  .card-body {
+    overflow: hidden; 
+   
+  }
+  
+  .card-text {
+    white-space: normal; 
+    text-overflow: ellipsis; 
+  }
+  
+  /* .custom-container {
+    margin-top: 150px !important; 
+  } */
+  

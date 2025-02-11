@@ -1,21 +1,19 @@
 <div class="about container-fluid mt-0">
     <div class="container py-5">
-        <div class="row g-5 align-items-center">
-            <div class="col-xl-7 wow fadeInLeft" data-wow-delay="0.2s">
+        <div class="row g-5 align-items-center" *ngIf="aboutUsData.length > 0">
+            <!-- Loop kupitia aboutUsData -->
+            <div class="col-xl-7 wow fadeInLeft" data-wow-delay="0.2s" *ngFor="let aboutUs of aboutUsData">
                 <div>
                     <h1 class="display-5 text-primary text-center mb-4">About Us</h1>
                     <h5 class="display-6 mb-4">The Ministry of Health Zanzibar</h5>
-                    <p class="mb-4">The Ministry of Health Zanzibar is responsible for overseeing all health-related matters in Zanzibar. In the early 1990s, 
-                    the Ministry initiated a comprehensive reform process in 2002.
-                    This effort led to the development of the Strategic Plan for the Health Sector (ZHSRSP I) 2002/03–2006/07, followed by ZHSRSP II 2006/07–2010/11, which was based on the 1999 Zanzibar Health Policy.
-                    </p>
+                    <p class="mb-4">{{ aboutUs?.descriptions }}</p>
                     <div class="row g-4">
                         <div class="col-md-6 col-lg-6 col-xl-6">
                             <div class="d-flex">
                                 <div><i class="fas fa-lightbulb fa-3x text-primary"></i></div>
                                 <div class="ms-4">
                                     <h4>Vision</h4>
-                                    <p>To ensure access to reliable health services for all people in Zanzibar, promoting equality.</p>
+                                    <p>{{ aboutUs?.vision }}</p> <!-- Vision kutoka API -->
                                 </div>
                             </div>
                         </div>
@@ -24,8 +22,7 @@
                                 <div> <i class="bi bi-bookmark-heart-fill fa-3x text-primary"></i></div>
                                 <div class="ms-4">
                                     <h4>Mission</h4>
-                                    <p>To provide strategic leadership within the Ministry of Health in Zanzibar,
-                                    ensuring that all Zanzibaris uphold their right to quality and equitable healthcare services.</p>
+                                    <p>{{ aboutUs?.mission }}</p> <!-- Mission kutoka API -->
                                 </div>
                             </div>
                         </div>
@@ -37,27 +34,19 @@
                                 <i class="fas fa-phone-alt fa-2x text-primary me-4"></i>
                                 <div>
                                     <h4>Call Us</h4>
-                                    <p class="mb-0 fs-5" style="letter-spacing: 1px;">+255242231614</p>
+                                    <p class="mb-0 fs-5" style="letter-spacing: 1px;">{{ aboutUs?.contact_phone }}</p> 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
+            <!-- Sehemu ya picha -->
             <div class="col-xl-5 wow fadeInRight" data-wow-delay="0.2s">
                 <div class="bg-primary rounded position-relative overflow-hidden">
-                    <img src="../../../assets/img/mh.wazir.jpeg" class="img-fluid rounded w-100" alt="">
+                    <img *ngIf="aboutUsData[0]?.images" [src]="aboutUsData[0]?.images" class="img-fluid rounded w-100" alt="About Us Image">
                     
-                    <div class="" style="position: absolute; top: -15px; right: -15px;">
-                        <img src="../assets/img/about-3.png" class="img-fluid" style="width: 150px; height: 150px; opacity: 0.7;" alt="">
-                    </div>
-                    <div class="" style="position: absolute; top: -20px; left: 10px; transform: rotate(90deg);">
-                        <img src="../assets/img/about-4.png" class="img-fluid" style="width: 100px; height: 150px; opacity: 0.9;" alt="">
-                    </div>
-                    <div class="rounded-bottom">
-                        <img src="../../../assets/img/mh.wazir2.jpeg" class="img-fluid rounded-bottom w-100" alt="">
-                    </div>
                 </div>
             </div>
         </div>

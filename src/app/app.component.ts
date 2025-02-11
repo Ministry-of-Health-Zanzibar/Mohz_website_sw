@@ -14,7 +14,9 @@ import { NgwWowService } from 'ngx-wow';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+[x: string]: any;
   title = 'mohz-website-ui';
+center: any;
 
   constructor(private wowService: NgwWowService) {
     // this.wowService.init();

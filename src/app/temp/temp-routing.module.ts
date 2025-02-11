@@ -215,6 +215,23 @@ const routes: Routes = [
         loadComponent: () =>
           import('./components/news/news.component').then((c)  => c.NewsComponent)
       },
+
+      {
+        path: 'partners',
+        loadComponent: () =>
+          import('./Pages/Partners/all-partners/all-partners.component').then((c)  => c.AllPartnersComponent)
+      },
+
+      {
+        path: 'read-our-service/:id',
+        loadComponent: () =>
+          import('./components/our-service/read-more-services/read-more-services.component').then((c)  => c.ReadMoreServicesComponent)
+      },
+      {
+        path: 'read-events/:id',
+        loadComponent: () =>
+          import('./components/read-more-events/read-more-events.component').then((c)  => c.ReadMoreEventsComponent)
+      },
     ]
   },
  

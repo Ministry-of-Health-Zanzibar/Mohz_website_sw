@@ -1,92 +1,29 @@
-.team-section {
-    margin: 50px auto;
-    max-width: 1000px; /* Punguza upana wa container */
-    text-align: center; /* Weka content zote kati */
-  }
-  
-  .section-title {
-    color: #007bff;
-    font-weight: bold;
-  }
-  
-  .section-subtitle {
-    font-size: 2rem;
-    margin: 10px 0;
-  }
-  
-  .section-description {
-    margin-bottom: 30px;
-    color: gray;
-  }
-  
-  .team-card {
-    display: inline-block;
-    position: relative; /* Lazima kwa background animation */
-    border: none;
-    border-radius: 10px;
-    overflow: hidden; /* Zuia background isizidi mipaka */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 15px;
-    max-width: 250px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background: #ffffff; /* Rangi ya default */
-  }
-  
-  .team-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    background: linear-gradient(135deg, #1975f6, #2575fc); /* Gradient background wakati hover */
-    color: white; /* Badilisha maandishi kuwa meupe wakati hover */
-  }
-  
-  .team-card:hover .member-name,
-  .team-card:hover .member-role {
-    color: white; /* Ongeza contrast kwa maandishi */
-  }
-  
-  .image-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-  }
-  
-  .profile-image {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px dotted #007bff;
-  }
-  
-  .member-name {
-    font-weight: bold;
-    margin: 10px 0 5px;
-    transition: color 0.3s ease; /* Smooth transition ya rangi */
-  }
-  
-  .member-role {
-    color: gray;
-    font-size: 0.9rem;
-    transition: color 0.3s ease; /* Smooth transition ya rangi */
-  }
-  
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .social-icons a {
-    color: #007bff;
-    font-size: 1.2rem;
-    transition: color 0.2s;
-  }
-  
-  .social-icons a:hover {
-    color: white; /* Badilisha rangi ya icons wakati hover */
-  }
-  
-  
+.card {
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden; 
+  text-align: center;
+}
+
+.card-img-top {
+  border-radius: 20%; 
+  width: 100px; 
+  height: 100px; 
+  object-fit: cover; 
+  margin: 10px auto; 
+}
+
+.card-body {
+  overflow: hidden; 
+}
+
+.card-text {
+  white-space: normal; 
+  text-overflow: ellipsis; 
+}
+
+.custom-container {
+  margin-top: 150px !important; 
+}
+
+

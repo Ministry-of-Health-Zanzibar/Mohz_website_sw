@@ -7,6 +7,7 @@ import { NewsComponent } from '../../components/news/news.component';
 import { JoinUsComponent } from '../../components/join-us/join-us.component';
 import { TeamLeaderComponent } from '../../components/TeamLeader/team-leader/team-leader.component';
 import { NgwWowService } from 'ngx-wow';
+import { MinistrySystemComponent } from "../../components/System/ministry-system/ministry-system.component";
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ import { NgwWowService } from 'ngx-wow';
     NewsComponent,
     JoinUsComponent,
     TeamLeaderComponent,
-  ],
+    MinistrySystemComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

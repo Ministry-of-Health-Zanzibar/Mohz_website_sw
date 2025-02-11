@@ -22,3 +22,9 @@ body {
 .btn-success:hover {
   background-color: #007bff;
 }
+
+#map {
+  height: 400px;
+  width: 100%;
+  border-radius: 10px;
+}
