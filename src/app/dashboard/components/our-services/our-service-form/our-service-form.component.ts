@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -10,7 +10,6 @@ import { OurServiceService } from '../../../../services/our-service/our-service.
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { AuthenticationService } from '../../../../services/auth/authentication.service';
 import { ToastService } from '../../../../services/toast/toast.service';
 
 @Component({
@@ -28,7 +27,7 @@ import { ToastService } from '../../../../services/toast/toast.service';
   templateUrl: './our-service-form.component.html',
   styleUrl: './our-service-form.component.css',
 })
-export class OurServiceFormComponent implements OnInit {
+export class OurServiceFormComponent implements OnInit, OnDestroy {
   private readonly onDestroy = new Subject<void>();
     public onAddOurServiceEventEmitter = new EventEmitter();
     public onEditOurServiceEventEmitter = new EventEmitter();

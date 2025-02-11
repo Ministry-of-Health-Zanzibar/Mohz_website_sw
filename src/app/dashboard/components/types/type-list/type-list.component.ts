@@ -182,6 +182,26 @@ export class TypeListComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
+  // Restore
+  public restoreDeletedPostType(data: any): void {
+    console.log(data.id);
+    this.typeService.restoreDeletedPostType(data, data.id).subscribe(
+      (response: any) => {
+        if (response.statusCode === 200) {
+          this.getAllTypes();
+          this.toastService.toastSuccess(response.message);
+        } else {
+          this.toastService.toastError(response.message);
+        }
+      },
+      (errorResponse: HttpErrorResponse) => {
+        if (errorResponse) {
+          this.toastService.toastError(errorResponse.error.message);
+        }
+      }
+    );
+  }
+
 
   ngOnDestroy(): void {
     this.onDestroy.next();

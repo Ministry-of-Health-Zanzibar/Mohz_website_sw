@@ -90,7 +90,7 @@
           <!-- Restore -->
           <span *ngIf="element.deleted_at !== null">
             <button
-            (click)="deleteType(element)"
+            (click)="restoreDeletedPostType(element)"
               mat-mini-fab
               color="info"
               matTooltip="Restore"

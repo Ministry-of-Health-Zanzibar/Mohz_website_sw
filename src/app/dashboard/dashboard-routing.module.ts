@@ -320,6 +320,30 @@ const routes: Routes = [
             './components/partners/view-partner-datails/view-partner-datails.component'
           ).then((c) => c.ViewPartnerDatailsComponent),
       },
+      {
+        path: 'dp-program-list',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/departments-programs/department-program-list/department-program-list.component'
+          ).then((c) => c.DepartmentProgramListComponent),
+      },
+      {
+        path: 'dp-program-form',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/departments-programs/department-program-form/department-program-form.component'
+          ).then((c) => c.DepartmentProgramFormComponent),
+      },
+      {
+        path: 'dp-program-details/:id',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/departments-programs/view-department-program/view-department-program.component'
+          ).then((c) => c.ViewDepartmentProgramComponent),
+      },
     ],
   },
 ];
