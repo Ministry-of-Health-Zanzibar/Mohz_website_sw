@@ -344,6 +344,25 @@ const routes: Routes = [
             './components/departments-programs/view-department-program/view-department-program.component'
           ).then((c) => c.ViewDepartmentProgramComponent),
       },
+      {
+        path: 'ministry-system',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/Ministry-system/ministry-system-form/ministry-system-form.component'
+          ).then((c) => c.MinistrySystemFormComponent),
+      },
+
+      {
+        path: 'ministry-system-list',
+        title: '',
+        loadComponent: () =>
+          import(
+            './components/Ministry-system/ministry-system-list/ministry-system-list.component'
+          ).then((c) => c.MinistrySystemListComponent),
+      },
+
+
     ],
   },
 ];

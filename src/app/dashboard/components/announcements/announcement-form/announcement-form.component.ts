@@ -98,42 +98,34 @@ export class AnnouncementFormComponent implements OnInit {
     }
   }
 
-  // Add
   public addAnnouncement(): void {
     const formData = new FormData();
-    formData.append(
-      'announcement_title',
-      this.announcementForm.get('announcementTitle')?.value
-    );
-    formData.append(
-      'announcement_content',
-      this.announcementForm.get('announcementContent')?.value
-    );
-
-    const file = this.announcementForm.get('document')?.value;
-    if (file) {
-      formData.append('announcement_document', file, file.name); // Ensure filename is included
+    formData.append('announcement_title', this.announcementForm.get('announcementTitle')?.value);
+    formData.append('announcement_content', this.announcementForm.get('announcementContent')?.value);
+  
+    const files = this.announcementForm.get('document')?.value;
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        formData.append('announcement_document[]', files[i], files[i].name); // Append each file
+      }
     }
-
+  
     this.announcementService.createAnnouncement(formData).subscribe(
       (response: any) => {
-        // console.log(this.announcementForm.value);
         this.dialogRef.close();
         this.onAddAnnouncementEventEmitter.emit();
         if (response.statusCode === 201) {
           this.toastService.toastSuccess(response.message);
         } else {
-          // this.toastService.toastError('An error occured while processing');
           this.toastService.toastError(response.message);
         }
       },
       (errorResponse: HttpErrorResponse) => {
-        if (errorResponse) {
-          this.toastService.toastError(errorResponse.error.message);
-        }
+        this.toastService.toastError(errorResponse.error.message);
       }
     );
   }
+  
 
   // Update
   public updateAnnouncement(): void {
@@ -149,7 +141,7 @@ export class AnnouncementFormComponent implements OnInit {
 
     // const file = this.announcementForm.get('document')?.value;
     // if (file) {
-      formData.append('announcement_document', this.announcementForm.get('document')?.value); // Ensure filename is included
+      formData.append('announcement_document[]', this.announcementForm.get('document')?.value); // Ensure filename is included
     // }
 
     this.announcementService
@@ -209,25 +201,31 @@ export class AnnouncementFormComponent implements OnInit {
   public onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input?.files?.length) {
-      const file = input.files[0];
-
-      // Validate file type
-      if (file.type !== 'application/pdf') {
-        this.fileError = 'Please select a valid PDF file.';
-        return;
-      }
-
-      // Validate file size (Max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        this.fileError = 'Document size should not exceed 5MB.';
-        return;
-      }
-
-      // Clear error and set file in form
+      // Clear any previous errors
       this.fileError = null;
-      this.announcementForm.get('document')?.setValue(file);
+      
+      const files = input.files;
+      // Ensure all files are valid
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        // Validate file type
+        if (file.type !== 'application/pdf') {
+          this.fileError = 'Please select only PDF files.';
+          return;
+        }
+  
+        // Validate file size (Max 5MB per file)
+        if (file.size > 5 * 1024 * 1024) {
+          this.fileError = 'Document size should not exceed 5MB per file.';
+          return;
+        }
+      }
+  
+      // Set the files in the form control
+      this.announcementForm.get('document')?.setValue(files);
     }
   }
+  
 
   ngOnDestroy(): void {
     this.onDestroy.next();

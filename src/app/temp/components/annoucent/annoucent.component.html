@@ -11,7 +11,7 @@
       </span>
       <div *ngIf="!isLoading" class="row g-4">
           <div *ngFor="let announcement of announcements; let i = index;" class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
-              <div class="feature-item p-4" *ngIf="i < 8">
+              <div class="feature-item p-4" *ngIf="i < 4">
                   <div class="feature-icon p-4 mb-4">
                       <!-- <i class="fas fa-chart-line fa-4x text-primary"></i> -->
                       <i class="fa-solid fa-bullhorn fa-4x text-primary"></i>
@@ -19,6 +19,20 @@
                   </div>
                   <h4 class="fw-bold">{{ announcement?.announcement_title }}</h4>
                   <p class="mb-4">{{ truncateDescription(announcement?.announcement_content, 20) }}</p>
+
+                  <div class="d-flex justify-content-center">
+                    <ul *ngIf="announcement?.document_urls?.length > 0; else noFiles" class="list-unstyled text-center">
+                      <li *ngFor="let file of announcement?.document_urls">
+                        <a [href]="file.url" target="_blank" class="d-flex align-items-center justify-content-center">
+                          <i class="fa-solid fa-file-pdf fa-lg text-danger me-2"></i> <span class="fw-bold">Download File</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <ng-template #noFiles>
+                    <p class="text-center">No files available</p>
+                  </ng-template>
+                  
                   <a class="btn btn-primary rounded-pill py-2 px-4" routerLink="/temp/main/more-annoucement">View More</a>
               </div>
           </div>

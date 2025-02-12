@@ -11,10 +11,10 @@ export class AnnouncementService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public createAnnouncement(data: any): Observable<any> {
+  public createAnnouncement(formData: any): Observable<any> {
     return this.httpClient.post<any>(
       `${this.apiUrl}/api/announcements/create`,
-      data
+      formData
     );
   }
 

@@ -1,0 +1,19 @@
+.full-width {
+    width: 100%;
+    margin-bottom: 20px; /* Optional space between fields */
+  }
+  
+  .container {
+    max-width: 600px; /* Limit the form width */
+    margin: 0 auto; /* Center the form */
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  button {
+    width: 100%;
+    margin-top: 20px; /* Add space between the last field and the button */
+  }
+  

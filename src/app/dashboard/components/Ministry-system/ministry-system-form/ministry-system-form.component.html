@@ -1,0 +1,33 @@
+<div class="container mt-4 p-2">
+  <h1 class="text-primary text-center mt-2">Create New Ministry System</h1>
+  <form [formGroup]="ministryForm" (ngSubmit)="onSubmit()" class="mt-4">
+    <!-- System Title -->
+    <mat-form-field appearance="fill" class="form-group full-width">
+      <mat-label>System Title</mat-label>
+      <input matInput id="system_title" formControlName="system_title" type="text" placeholder="Enter system title">
+      <mat-error *ngIf="ministryForm.get('system_title')?.invalid && ministryForm.get('system_title')?.touched">
+        System Title is required and must be less than 255 characters.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- System Link -->
+    <mat-form-field appearance="fill" class="form-group full-width">
+      <mat-label>System Link</mat-label>
+      <input matInput id="system_link" formControlName="system_link" type="text" placeholder="Enter system link">
+      <mat-error *ngIf="ministryForm.get('system_link')?.invalid && ministryForm.get('system_link')?.touched">
+        A valid URL is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- System Logo -->
+    <div class="form-group full-width">
+      <label for="system_logo">System Logo</label>
+      <input id="system_logo" formControlName="system_logo" type="file" (change)="onFileChange($event)">
+      <mat-error *ngIf="ministryForm.get('system_logo')?.invalid && ministryForm.get('system_logo')?.touched">
+        Please upload a logo.
+      </mat-error>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="ministryForm.invalid">Submit</button>
+  </form>
+</div>

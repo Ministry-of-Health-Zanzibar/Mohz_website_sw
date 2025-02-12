@@ -1,38 +1,16 @@
 <div class="container mt-5">
     <p class="fw-bold text-center text-primary h1">
-         ___ Ministry's System ___</p>
+        ___ Ministry's System ___
+    </p>
     <div class="text-center">
-        <div class="row justify-content-center gx-1"> <!-- justify-content-center inaweka picha katikati -->
-            <div class="col-auto">
-                <img src="../../../../../assets/img/logo_front.png" alt="" 
-                    class="rounded-circle" 
-                    style="width: 100px; height: 100px; border: 3px solid rgb(255, 255, 255); object-fit: contain; background-color: white; padding: 10px;">
-                <p>DHIS2</p>
-            </div>
-            <div class="col-auto">
-                <img src="../../../../../assets/img/ihmis.jpg" alt="" 
-                    class="rounded-circle" 
-                    style="width: 100px; height: 100px; border: 3px solid rgb(255, 255, 255); object-fit: contain; background-color: white; padding: 10px;">
-                <p>DHIS2</p>
-            </div>
-            <div class="col-auto">
-                <img src="../../../../../assets/img/profile-img.jpg" alt="" 
-                    class="rounded-circle" 
-                    style="width: 100px; height: 100px; border: 3px solid rgb(255, 255, 255); object-fit: contain; background-color: white; padding: 10px;">
-                <p>DHIS2</p>
-            </div>
-            <!-- Ongeza picha zaidi hapa -->
-            <div class="col-auto">
-                <img src="../../../../../assets/img/profile-img.jpg" alt="" 
-                    class="rounded-circle" 
-                    style="width: 100px; height: 100px; border: 3px solid rgb(255, 255, 255); object-fit: contain; background-color: white; padding: 10px;">
-                <p>DHIS2</p>
-            </div>
-            <div class="col-auto">
-                <img src="../../../../../assets/img/profile-img.jpg" alt="" 
-                    class="rounded-circle" 
-                    style="width: 100px; height: 100px; border: 3px solid rgb(255, 255, 255); object-fit: contain; background-color: white; padding: 10px;">
-                <p>DHIS2</p>
+        <div class="row justify-content-center gx-3"> <!-- Keeps items in one row -->
+            <div class="col-auto" *ngFor="let ministrySystem of ministrySystems">
+                <img [src]="ministrySystem?.system_logo" alt=""
+                    class="rounded-circle"
+                    style="width: 100px; height: 100px; border: 3px solid rgb(255, 255, 255); 
+                           object-fit: contain; background-color: white; padding: 10px;">
+                <p class="h6 text-primary">{{ ministrySystem?.system_title }}</p>
+                <!-- <p class="h6">System link: {{ ministrySystem?.system_link }}</p> -->
             </div>
         </div>
     </div>

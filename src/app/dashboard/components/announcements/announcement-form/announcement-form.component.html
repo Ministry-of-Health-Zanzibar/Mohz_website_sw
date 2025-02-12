@@ -1,5 +1,4 @@
 <div class="container-fluid">
-  <!-- <h5 class="font-semibold mt-4">{{ dialogData.action }} Announcement</h5> -->
   <h5 class="fw-bold mt-4" *ngIf="dialogData.action === 'CREATE NEW'">
     Create New Announcement
   </h5>
@@ -47,16 +46,16 @@
         </mat-error>
       </mat-form-field>
 
-       <!-- Image -->
-       <div class="col-md-12 mt-2 mb-3">
+      <!-- File Input for Multiple PDFs -->
+      <div class="col-md-12 mt-2 mb-3">
         <div class="mb-2">
-            <mat-label>Image</mat-label>
+          <mat-label>Documents (PDFs)</mat-label>
         </div>
-        <input type="file" (change)="onFileSelected($event)"
-        accept="*" class="form-control" multiple/>
+        <input type="file" (change)="onFileSelected($event)" accept="application/pdf" multiple class="form-control"/>
+
         <mat-error *ngIf="fileError">
-            {{ fileError }}
-          </mat-error>
+          {{ fileError }}
+        </mat-error>
       </div>
     </div>
   </form>
@@ -73,4 +72,3 @@
     </button>
   </mat-dialog-actions>
 </div>
-
