@@ -6,35 +6,26 @@
           <div class="col-md-4">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>First Name</mat-label>
-              <input matInput formControlName="first_name" placeholder="Enter first name">
+              <input matInput formControlName="firstName" placeholder="Enter first name">
               <mat-icon matSuffix>person</mat-icon>
-              <mat-error *ngIf="signupForm.get('first_name')?.invalid">First Name is required</mat-error>
+              <mat-error *ngIf="signupForm.get('firstName')?.invalid">First Name is required</mat-error>
             </mat-form-field>
           </div>
   
           <div class="col-md-4">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Middle Name</mat-label>
-              <input matInput formControlName="middle_name" placeholder="Enter middle name">
+              <input matInput formControlName="middleName" placeholder="Enter middle name">
             </mat-form-field>
           </div>
   
           <div class="col-md-4">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Last Name</mat-label>
-              <input matInput formControlName="last_name" placeholder="Enter last name">
-              <mat-error *ngIf="signupForm.get('last_name')?.invalid">Last Name is required</mat-error>
+              <input matInput formControlName="lastName" placeholder="Enter last name">
+              <mat-error *ngIf="signupForm.get('lastName')?.invalid">Last Name is required</mat-error>
             </mat-form-field>
           </div>
-        </div>
-  
-  
-        <div class="col">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Address </mat-label>
-            <input matInput formControlName="address" placeholder="address">
-            <mat-error *ngIf="signupForm.get('address')?.invalid">Address is required</mat-error>
-          </mat-form-field>
         </div>
   
         <div class="row">
@@ -50,9 +41,9 @@
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Phone Number</mat-label>
-              <input matInput formControlName="phone_no" type="tel" placeholder="Enter phone number">
+              <input matInput formControlName="phoneNo" type="tel" placeholder="Enter phone number">
               <mat-icon matSuffix>call</mat-icon>
-              <mat-error *ngIf="signupForm.get('phone_no')?.invalid">Valid Phone Number is required</mat-error>
+              <mat-error *ngIf="signupForm.get('phoneNo')?.invalid">Valid Phone Number is required</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -71,7 +62,7 @@
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Date of Birth</mat-label>
-              <input matInput formControlName="date_of_birth" type="date">
+              <input matInput formControlName="dateOfBirth" type="date">
             </mat-form-field>
           </div>
         </div>

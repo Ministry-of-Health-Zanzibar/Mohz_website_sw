@@ -32,9 +32,9 @@ export class AuthenticationService {
     });
   }
 
-  // public signup(signup: User): Observable<User> {
-  //   return this.httpClient.post<User>(`${this.apiUrl}/api/signup`, signup);
-  // }
+  public signup(formData: any): Observable<any> {
+    return this.httpClient.post<any>(`${this.apiUrl}/api/userAccounts`, formData);
+  }
 
   public saveToken(token: string | null): void {
     if (token) {
@@ -68,5 +68,9 @@ export class AuthenticationService {
   public logOut(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+  }
+
+  changePassword(data: any) {
+    return this.httpClient.post<any>(`${this.apiUrl}/api/changePassword`,data);
   }
 }

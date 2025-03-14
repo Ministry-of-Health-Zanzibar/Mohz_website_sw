@@ -42,7 +42,7 @@
               "node_modules/wowjs/dist/wow.min.js",
               "src/assets/js/main.js",
               "src/assets/lib/wow/wow.min.js",
-              "node_modules/leaflet/dist/leaflet.js"           
+              "node_modules/leaflet/dist/leaflet.js"
             ]
           },
           "configurations": {
@@ -77,6 +77,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 4201  
+          },
           "configurations": {
             "production": {
               "buildTarget": "mohz-website-ui:build:production"
@@ -112,7 +115,7 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-              "node_modules/leaflet/dist/leaflet.js" 
+              "node_modules/leaflet/dist/leaflet.js"
             ]
           }
         }

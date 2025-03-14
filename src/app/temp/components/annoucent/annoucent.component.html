@@ -2,7 +2,7 @@
 <div class="container-fluid feature mt-5">
   <div class="container">
       <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-          <h1 class="text-primary text-capitalize">latest announcements</h1>
+        <h1 class="text-primary text-capitalize">Matangazo Mapya</h1>
           <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
           </p>
       </div>
@@ -17,7 +17,13 @@
                       <i class="fa-solid fa-bullhorn fa-4x text-primary"></i>
 
                   </div>
-                  <h4 class="fw-bold">{{ announcement?.announcement_title }}</h4>
+                  <h4 class="fw-bold">
+                    {{ announcement?.announcement_title }}
+                    <span class="badge bg-danger blinking ms-2">NEW</span>
+                  </h4>
+                  
+                  
+                  
                   <p class="mb-4">{{ truncateDescription(announcement?.announcement_content, 20) }}</p>
 
                   <div class="d-flex justify-content-center">

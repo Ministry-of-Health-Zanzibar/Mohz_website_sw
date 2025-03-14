@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthenticationService } from '../services/auth/authentication.service';
 import { ToastService } from '../services/toast/toast.service';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +12,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     RouterModule,
+    MatIconModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
